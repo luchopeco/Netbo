@@ -1,0 +1,18 @@
+﻿body {
+}
+
+@media print {
+    .non-printable {
+        display: none;
+    }
+
+    .printable {
+        display: block;
+        height: 100%
+    }
+}
+.media .date {
+    
+    width: 100px !important;
+
+}

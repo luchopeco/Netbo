@@ -1,0 +1,107 @@
+﻿@model Entidades.EF.carga_puntos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>carga_puntos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.socio_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.socio_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_beneficio_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_beneficio_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.monto_cargado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monto_cargado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.puntos_cargados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.puntos_cargados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_beneficio_monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_beneficio_monto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_beneficio_puntos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_beneficio_puntos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_alta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_alta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_alta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_alta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_modificacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

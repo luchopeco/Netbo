@@ -1,0 +1,61 @@
+﻿@model Entidades.EF.AspNetUser
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Editando Usuario</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+               Usuario
+            </div>
+            <div class="x_content">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName, "Nombre De Usuario", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @disabled="disabled" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Complejo</label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.complejo_id, ViewBag.ListComplejos as SelectList, "", new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.complejo_id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Modificar" class="btn btn-success btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+              
+
+                @section Script {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }

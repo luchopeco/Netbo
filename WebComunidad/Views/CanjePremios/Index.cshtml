@@ -1,0 +1,191 @@
+﻿@model WebComunidad.Models.CanjePremios.CanjePremiosIndexModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Canjes de Premios <spam>Complejo: @ViewBag.Complejo</spam></h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjExito != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjExito</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Nuevo Canje de Premio</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Canjear Premio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Canjes</div>
+            <div class="x_content">
+                @using (Html.BeginForm("PorFecha", "CanjePremios"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            Fecha Desde
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                @Html.EditorFor(model => model.FechaDesde, new { htmlAttributes = new { @class = "form-control datepicker", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Fecha Hasta
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                @Html.EditorFor(model => model.FechaHasta, new { htmlAttributes = new { @class = "form-control datepicker", @required = "required" } })
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-success" title="Buscar" value="Buscar" id="btn-Buscar">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model != null && Model.ListCanjes != null && Model.ListCanjes.Count > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-condensed">
+                                    <tr>
+                                        <th>
+                                            Socio
+                                        </th>
+                                        <th>
+                                            Premio
+                                        </th>
+                                        <th>
+                                            Puntos
+                                        </th>
+                                        <th>
+                                            Fecha
+                                        </th>
+                                        <th>
+                                            Usuario
+                                        </th>
+                                        <th>
+                                            Complejo
+                                        </th>
+                                        <th>
+                                            Obs
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                    @foreach (var item in Model.ListCanjes)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.socio.apellido), @Html.DisplayFor(modelItem => item.socio.nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.premio.nombre)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.puntos_canjeados) puntos
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.fecha_alta)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.usuario_alta)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.complejo.descripcion)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.observaciones)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Script {
+    <script>
+        $(function () {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $(".datepicker").datepicker();
+        });
+    </script>
+
+}

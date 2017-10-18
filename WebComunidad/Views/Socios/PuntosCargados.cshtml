@@ -1,0 +1,223 @@
+﻿@model IEnumerable<Entidades.EF.carga_puntos>
+
+@{
+    ViewBag.Title = "PuntosCargados";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Puntos Cargados Por Socio</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 form-group pull-right top_search">
+                    <small class="text-danger">Desde aqui puede consultar el historico de puntos cargados por los socios</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjExito != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjExito</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Busqueda</div>
+            <div class="x_content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="hidden" name="id" id="txt-socio-id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            Socio (Apellido - Documento)
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-user"></i></span>
+                                <input class="form-control" tabindex="-1" id="txt-ape-doc-socio" type="text" placeholder="Apellido o Numero Documento">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            Fecha Desde
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaDesde" placeholder="Fecha Desde" class="form-control datepicker" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            Fecha Hasta
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaHasta" placeholder="Fecha Hasta" class="form-control datepicker" required />
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-success" title="Buscar" value="Buscar" id="btn-Buscar">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>@ViewBag.SubTitulo</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row tile_count">
+                                <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-user"></i> Puntos del Socio</span>
+                                    <div class="count">@ViewBag.Puntos</div>
+                                    <span class="count_bottom"><i class="green">Puntos Actuales</i></span>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">                        
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-condensed">
+                                    <tr>
+                                        <th>
+                                            Fecha
+                                        </th>
+                                        <th>
+                                            Tipo Beneficio
+                                        </th>
+                                        <th>
+                                            Monto
+                                        </th>
+                                        <th>
+                                            Puntos
+                                        </th>
+                                        <th>
+                                            Complejo
+                                        </th>
+                                        <th>
+                                            Obs
+                                        </th>
+                                        <th>
+                                            Usuario
+                                        </th>
+                                    </tr>
+
+                                    @foreach (var item in Model.OrderByDescending(p => p.fecha_alta))
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.fecha_alta)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tipo_beneficio.descripcion)
+                                            </td>
+                                            <td>
+                                                $ @Html.DisplayFor(modelItem => item.monto_cargado)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.puntos_cargados) puntos
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.complejo.descripcion)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.observaciones)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.usuario_alta)
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Total de Cargas: @Model.Count()
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Script {
+    <script>
+        $(function () {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $(".datepicker").datepicker();
+
+            $("#txt-ape-doc-socio").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("SocioApeDoc","CargaPuntos")",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Prevent value from being put in the input:
+                    // Set the next input's value to the "value" of the item.
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    $("#txt-socio-id").val(ui.item.value);
+                    event.preventDefault();
+                },
+                focus: function (event, ui) {
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    event.preventDefault();
+                },
+                minLength: 3
+            });
+        });
+    </script>
+
+}
+

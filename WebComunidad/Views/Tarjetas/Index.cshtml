@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Entidades.EF.tarjeta_socio>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Gestion De Tarjetas</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 form-group pull-right top_search">
+                    <small class="text-danger">Desde aqui se gestionan las tarjetas. Las mismas se pueden cargar antes de asignar a un socio. Esto NO es obligatorio, pero es posible.                       </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Tarjetas</div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Nueva Tarjeta
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        Nro
+                                    </th>
+                                    <th>
+                                        Fecha Alta
+                                    </th>
+                                    <th>
+                                        Activada
+                                    </th>
+                                    <th>
+                                        Observaciones
+                                    </th>
+                                    <th>
+                                        Modo Activacion
+                                    </th>
+                                    <th>
+                                        Socio Asociado
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.numero_tarjeta)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.fecha_alta)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.activada)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.observaciones)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.modo_activacion)
+                                        </td>
+                                        <td>
+                                            @if (item.socio_id != null)
+                                            {
+                                                <div>@Html.DisplayFor(modelItem => item.socio.apellido),  @Html.DisplayFor(modelItem => item.socio.nombre)</div>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @*<a href="@Url.Action("Edit", new {id = item.id})" title="Editar" class="btn btn-xs btn-info">
+                                                <i class="fa fa-edit"></i>
+                                            </a>*@
+                                            <a href="@Url.Action("Details", new {id = item.id})" title="Detalle" class="btn btn-xs btn-primary">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

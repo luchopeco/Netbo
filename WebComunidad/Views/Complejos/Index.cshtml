@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Entidades.EF.complejo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Gestion De Complejos</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Complejos</div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Nuevo Complejo
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed">
+                                <tr>
+                                    <th>
+                                        Descripcion
+                                    </th>
+                                    <th>
+                                        Fecha alta
+                                    </th>
+                                    <th>
+                                       Usuario Alta
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.descripcion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.fecha_alta)
+                                        </td>                                       
+                                        <td>
+                                            <a href="@Url.Action("Edit", new {id = item.id})" title="Editar Perfil" class="btn btn-xs btn-info">
+                                                <i class="fa fa-edit"></i>
+                                            </a>                                          
+                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

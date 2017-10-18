@@ -1,0 +1,150 @@
+﻿@model IEnumerable<Entidades.EF.AspNet_Perfiles>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Perfiles De Usuario</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Perfiles</div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Nuevo Perfil
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>
+                                            Perfil
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>
+                                            Perfil
+                                        </th>
+                                        <th title="Grupo Active Directory Correspondiente">
+                                            Grupo AD
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.id)
+                                            </td>                                           
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.descripcion)
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Edit", new {id = item.id})" title="Editar Perfil" class="btn btn-xs btn-info">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="@Url.Action("Details", new {id = item.id})" title="Editar Roles" class="btn btn-xs btn-primary">
+                                                    <i class="fa fa-edit"></i><i class="fa fa-users" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-info btn-xs" title="Detalles RolesRoles (ControllerAction Permitidas)" data-toggle="modal" data-target="#perfil-@Html.DisplayFor(modelItem => item.id)">
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+
+                                                </a>
+                                                <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                    <i class="fa fa-close"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="modal fade bs-example-modal-lg" id="perfil-@Html.DisplayFor(modelItem => item.id)" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">@item.descripcion:  Roles Asignados (ControllerAction)</h4>
+                </div>
+                <div class="modal-body">
+                    @foreach (var rol in item.AspNetRoles)
+                    {
+                        <p>@rol.Name</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+}
+@section Script{
+    <script>
+        $(document).ready(function () {
+            $("#table").DataTable(
+                 {
+                     "paging": false,
+                     "language": {
+                         "lengthMenu": "Mostrando _MENU_ Filas por Pagina",
+                         "zeroRecords": "Nothing found - sorry",
+                         "info": "Mostrando Pagina _PAGE_ De _PAGES_",
+                         "infoEmpty": "No se Encontraron Resultados",
+                         "infoFiltered": "(Filtrados de un Total de  _MAX_ Filas)",
+                         "paginate": {
+                             "first": "Primer",
+                             "last": "Ultimo",
+                             "next": ">",
+                             "previous": "<"
+                         },
+                         "search": "Buscar:",
+                     }
+                 });
+        });
+    </script>
+}

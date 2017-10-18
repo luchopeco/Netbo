@@ -1,0 +1,118 @@
+﻿@model List<Entidades.EF.AspNetRole>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using (Html.BeginForm("Edit", "RolesUsuarios", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Roles Usuarios: @ViewBag.NombreUsuario</h3>
+                </div>
+
+                <div class="title_right">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    Roles
+                </div>
+                <div class="x_content">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="display table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Rol
+                                        </th>
+                                        <th>
+                                            Activo
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>
+
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                 
+                                        @for (int count = 0; count < Model.Count(); count++ )
+                                        { 
+                                        <tr>
+                                            <td>
+                                            
+                                                @Html.DisplayFor(model=>model[count].Name)
+                                                @Html.TextBoxFor(model => model[count].Name,  new { @class = "hidden"})
+                                                @Html.TextBoxFor(model => model[count].Id, new { @class = "hidden" })
+                                            </td>
+                                            <td>
+                                                @Html.CheckBoxFor(model=>model[count].Activo)
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Modificar" class="btn btn-success btn-block"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Script{
+    <script>
+        $(document).ready(function () {
+            $("#table").DataTable(
+                 {
+                     "paging": false,
+                     "language": {
+                         "lengthMenu": "Mostrando _MENU_ Filas por Pagina",
+                         "zeroRecords": "Nothing found - sorry",
+                         "info": "Mostrando Pagina _PAGE_ De _PAGES_",
+                         "infoEmpty": "No se Encontraron Resultados",
+                         "infoFiltered": "(Filtrados de un Total de  _MAX_ Filas)",
+                         "paginate": {
+                             "first": "Primer",
+                             "last": "Ultimo",
+                             "next": ">",
+                             "previous": "<"
+                         },
+                         "search": "Buscar:",
+                     }
+                 });
+        });
+    </script>
+}

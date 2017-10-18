@@ -1,0 +1,1529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNet_Perfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="AspNet_PerfilesRoles">
+          <Key>
+            <PropertyRef Name="PerfilesId" />
+            <PropertyRef Name="RolesId" />
+          </Key>
+          <Property Name="PerfilesId" Type="int" Nullable="false" />
+          <Property Name="RolesId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNet_PerfilesUsuarios">
+          <Key>
+            <PropertyRef Name="PerfilesId" />
+            <PropertyRef Name="UsuariosId" />
+          </Key>
+          <Property Name="PerfilesId" Type="int" Nullable="false" />
+          <Property Name="UsuariosId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="complejo_id" Type="int" />
+        </EntityType>
+        <EntityType Name="canje_premios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="socio_id" Type="int" Nullable="false" />
+          <Property Name="premio_id" Type="int" Nullable="false" />
+          <Property Name="puntos_canjeados" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="complejo_canje_id" Type="int" Nullable="false" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="255" />
+          <Property Name="premio_puntos_valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="premio_complejo_responsable_id" Type="int" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usaurio_modificacion" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="canje_premios_detalle">
+          <Key>
+            <PropertyRef Name="canje_premio_id" />
+            <PropertyRef Name="carga_puntos_id" />
+          </Key>
+          <Property Name="canje_premio_id" Type="int" Nullable="false" />
+          <Property Name="carga_puntos_id" Type="int" Nullable="false" />
+          <Property Name="puntos_utilizados" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="carga_puntos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="socio_id" Type="int" Nullable="false" />
+          <Property Name="tipo_beneficio_id" Type="int" Nullable="false" />
+          <Property Name="monto_cargado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="puntos_cargados" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tipo_beneficio_monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tipo_beneficio_puntos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="255" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="complejo_id" Type="int" Nullable="false" />
+          <Property Name="puntos_disponibles" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="complejo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="fecha_baja" Type="datetime" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="usuario_baja" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="premio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion_larga" Type="varchar" MaxLength="1000" />
+          <Property Name="puntos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="complejo_responsable_id" Type="int" />
+          <Property Name="desactivado" Type="bit" Nullable="false" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="path_imagenes" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="provincia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="socio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="documento" Type="varchar" MaxLength="255" />
+          <Property Name="celular" Type="varchar" MaxLength="255" />
+          <Property Name="mail" Type="varchar" MaxLength="255" />
+          <Property Name="direccion" Type="varchar" MaxLength="255" />
+          <Property Name="localidad" Type="varchar" MaxLength="255" />
+          <Property Name="provincia" Type="varchar" MaxLength="255" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_baja" Type="datetime" />
+          <Property Name="observaciones" Type="varchar" MaxLength="255" />
+          <Property Name="puntos_actuales" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" />
+          <Property Name="complejo_alta_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tarjeta_socio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero_tarjeta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_baja" Type="date" />
+          <Property Name="activada" Type="bit" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="255" />
+          <Property Name="modo_activacion" Type="varchar" MaxLength="255" />
+          <Property Name="socio_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tipo_beneficio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_alta" Type="datetime" Nullable="false" />
+          <Property Name="usuario_alta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="monto_dinero" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="puntos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="fecha_modificacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_baja" Type="datetime" />
+          <Property Name="usuario_baja" Type="varbinary" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_AspNet_Perfiles">
+          <End Role="AspNet_Perfiles" Type="Self.AspNet_Perfiles" Multiplicity="1" />
+          <End Role="AspNet_PerfilesRoles" Type="Self.AspNet_PerfilesRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNet_Perfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AspNet_PerfilesRoles">
+              <PropertyRef Name="PerfilesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNet_PerfilesUsuarios_Perfiles">
+          <End Role="AspNet_Perfiles" Type="Self.AspNet_Perfiles" Multiplicity="1" />
+          <End Role="AspNet_PerfilesUsuarios" Type="Self.AspNet_PerfilesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNet_Perfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AspNet_PerfilesUsuarios">
+              <PropertyRef Name="PerfilesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNet_PerfilesUsuarios_Usuarios">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNet_PerfilesUsuarios" Type="Self.AspNet_PerfilesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNet_PerfilesUsuarios">
+              <PropertyRef Name="UsuariosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNet_Roles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNet_PerfilesRoles" Type="Self.AspNet_PerfilesRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNet_PerfilesRoles">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_complejo">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="complejo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_complejo_canje">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="1" />
+          <End Role="canje_premios" Type="Self.canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="complejo_canje_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_complejo_premio">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="0..1" />
+          <End Role="canje_premios" Type="Self.canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="premio_complejo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_detalle_canje_premios">
+          <End Role="canje_premios" Type="Self.canje_premios" Multiplicity="1" />
+          <End Role="canje_premios_detalle" Type="Self.canje_premios_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="canje_premios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios_detalle">
+              <PropertyRef Name="canje_premio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_detalle_carga_puntos">
+          <End Role="carga_puntos" Type="Self.carga_puntos" Multiplicity="1" />
+          <End Role="canje_premios_detalle" Type="Self.canje_premios_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carga_puntos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios_detalle">
+              <PropertyRef Name="carga_puntos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_premio">
+          <End Role="premio" Type="Self.premio" Multiplicity="1" />
+          <End Role="canje_premios" Type="Self.canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="premio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="premio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_socio">
+          <End Role="socio" Type="Self.socio" Multiplicity="1" />
+          <End Role="canje_premios" Type="Self.canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carga_puntos_complejo">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="1" />
+          <End Role="carga_puntos" Type="Self.carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="complejo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carga_puntos_socio">
+          <End Role="socio" Type="Self.socio" Multiplicity="1" />
+          <End Role="carga_puntos" Type="Self.carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carga_puntos_tipo_beneficio">
+          <End Role="tipo_beneficio" Type="Self.tipo_beneficio" Multiplicity="1" />
+          <End Role="carga_puntos" Type="Self.carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_beneficio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="tipo_beneficio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_premio_complejo">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="0..1" />
+          <End Role="premio" Type="Self.premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premio">
+              <PropertyRef Name="complejo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_socio_complejo">
+          <End Role="complejo" Type="Self.complejo" Multiplicity="0..1" />
+          <End Role="socio" Type="Self.socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="socio">
+              <PropertyRef Name="complejo_alta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tarjeta_socio_socio">
+          <End Role="socio" Type="Self.socio" Multiplicity="0..1" />
+          <End Role="tarjeta_socio" Type="Self.tarjeta_socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tarjeta_socio">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="LineasCreditoSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo_vehiculo" Type="int" Mode="In" />
+          <Parameter Name="antiguedad_vehiculo" Type="int" Mode="In" />
+          <Parameter Name="tipo_demostracion" Type="int" Mode="In" />
+          <Parameter Name="tipo_linea" Type="int" Mode="In" />
+          <Parameter Name="tope" Type="decimal" Mode="In" />
+          <Parameter Name="es0KM" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="s_lineas_credito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo_vehiculo" Type="int" Mode="In" />
+          <Parameter Name="antiguedad_vehiculo" Type="int" Mode="In" />
+          <Parameter Name="tipo_demostracion" Type="int" Mode="In" />
+          <Parameter Name="tipo_linea" Type="int" Mode="In" />
+          <Parameter Name="tope" Type="decimal" Mode="In" />
+          <Parameter Name="es0KM" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="MDDModelStoreContainer">
+          <EntitySet Name="AspNet_Perfiles" EntityType="Self.AspNet_Perfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNet_PerfilesRoles" EntityType="Self.AspNet_PerfilesRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNet_PerfilesUsuarios" EntityType="Self.AspNet_PerfilesUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="canje_premios" EntityType="Self.canje_premios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="canje_premios_detalle" EntityType="Self.canje_premios_detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="carga_puntos" EntityType="Self.carga_puntos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="complejo" EntityType="Self.complejo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="premio" EntityType="Self.premio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="provincia" EntityType="Self.provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="socio" EntityType="Self.socio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tarjeta_socio" EntityType="Self.tarjeta_socio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipo_beneficio" EntityType="Self.tipo_beneficio" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNet_Perfiles" Association="Self.FK_AspNet_Perfiles">
+            <End Role="AspNet_Perfiles" EntitySet="AspNet_Perfiles" />
+            <End Role="AspNet_PerfilesRoles" EntitySet="AspNet_PerfilesRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNet_PerfilesUsuarios_Perfiles" Association="Self.FK_AspNet_PerfilesUsuarios_Perfiles">
+            <End Role="AspNet_Perfiles" EntitySet="AspNet_Perfiles" />
+            <End Role="AspNet_PerfilesUsuarios" EntitySet="AspNet_PerfilesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNet_PerfilesUsuarios_Usuarios" Association="Self.FK_AspNet_PerfilesUsuarios_Usuarios">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNet_PerfilesUsuarios" EntitySet="AspNet_PerfilesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNet_Roles" Association="Self.FK_AspNet_Roles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNet_PerfilesRoles" EntitySet="AspNet_PerfilesRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_complejo" Association="Self.FK_AspNetUsers_complejo">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_complejo_canje" Association="Self.FK_canje_premios_complejo_canje">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_complejo_premio" Association="Self.FK_canje_premios_complejo_premio">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_detalle_canje_premios" Association="Self.FK_canje_premios_detalle_canje_premios">
+            <End Role="canje_premios" EntitySet="canje_premios" />
+            <End Role="canje_premios_detalle" EntitySet="canje_premios_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_detalle_carga_puntos" Association="Self.FK_canje_premios_detalle_carga_puntos">
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+            <End Role="canje_premios_detalle" EntitySet="canje_premios_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_premio" Association="Self.FK_canje_premios_premio">
+            <End Role="premio" EntitySet="premio" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_socio" Association="Self.FK_canje_premios_socio">
+            <End Role="socio" EntitySet="socio" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carga_puntos_complejo" Association="Self.FK_carga_puntos_complejo">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carga_puntos_socio" Association="Self.FK_carga_puntos_socio">
+            <End Role="socio" EntitySet="socio" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carga_puntos_tipo_beneficio" Association="Self.FK_carga_puntos_tipo_beneficio">
+            <End Role="tipo_beneficio" EntitySet="tipo_beneficio" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_premio_complejo" Association="Self.FK_premio_complejo">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="premio" EntitySet="premio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_socio_complejo" Association="Self.FK_socio_complejo">
+            <End Role="complejo" EntitySet="complejo" />
+            <End Role="socio" EntitySet="socio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tarjeta_socio_socio" Association="Self.FK_tarjeta_socio_socio">
+            <End Role="socio" EntitySet="socio" />
+            <End Role="tarjeta_socio" EntitySet="tarjeta_socio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Entidades.EF" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ComunidadEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Entidades.EF.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Entidades.EF.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="sp_alterdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams1" />
+          <FunctionImport Name="s_lineas_credito">
+            <Parameter Name="tipo_vehiculo" Mode="In" Type="Int32" />
+            <Parameter Name="antiguedad_vehiculo" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_demostracion" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_linea" Mode="In" Type="Int32" />
+            <Parameter Name="tope" Mode="In" Type="Decimal" />
+            <Parameter Name="es0KM" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="LineasCreditoSelect">
+            <Parameter Name="tipo_vehiculo" Mode="In" Type="Int32" />
+            <Parameter Name="antiguedad_vehiculo" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_demostracion" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_linea" Mode="In" Type="Int32" />
+            <Parameter Name="tope" Mode="In" Type="Decimal" />
+            <Parameter Name="es0KM" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="AspNet_Perfiles" EntityType="Entidades.EF.AspNet_Perfiles" />
+          <EntitySet Name="AspNetRoles" EntityType="Entidades.EF.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Entidades.EF.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Entidades.EF.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Entidades.EF.AspNetUser" />
+          <EntitySet Name="complejoes" EntityType="Entidades.EF.complejo" />
+          <EntitySet Name="premios" EntityType="Entidades.EF.premio" />
+          <EntitySet Name="provincias" EntityType="Entidades.EF.provincia" />
+          <EntitySet Name="sysdiagrams" EntityType="Entidades.EF.sysdiagram" />
+          <EntitySet Name="tarjeta_socio" EntityType="Entidades.EF.tarjeta_socio" />
+          <EntitySet Name="tipo_beneficio" EntityType="Entidades.EF.tipo_beneficio" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Entidades.EF.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Entidades.EF.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_complejo" Association="Entidades.EF.FK_AspNetUsers_complejo">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_premio_complejo" Association="Entidades.EF.FK_premio_complejo">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="premio" EntitySet="premios" />
+          </AssociationSet>
+          <AssociationSet Name="AspNet_PerfilesRoles" Association="Entidades.EF.AspNet_PerfilesRoles">
+            <End Role="AspNet_Perfiles" EntitySet="AspNet_Perfiles" />
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="AspNet_PerfilesUsuarios" Association="Entidades.EF.AspNet_PerfilesUsuarios">
+            <End Role="AspNet_Perfiles" EntitySet="AspNet_Perfiles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Entidades.EF.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="carga_puntos" EntityType="Entidades.EF.carga_puntos" />
+          <AssociationSet Name="FK_carga_puntos_complejo" Association="Entidades.EF.FK_carga_puntos_complejo">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carga_puntos_tipo_beneficio" Association="Entidades.EF.FK_carga_puntos_tipo_beneficio">
+            <End Role="tipo_beneficio" EntitySet="tipo_beneficio" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <EntitySet Name="canje_premios_detalle" EntityType="Entidades.EF.canje_premios_detalle" />
+          <AssociationSet Name="FK_canje_premios_detalle_carga_puntos" Association="Entidades.EF.FK_canje_premios_detalle_carga_puntos">
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+            <End Role="canje_premios_detalle" EntitySet="canje_premios_detalle" />
+          </AssociationSet>
+          <EntitySet Name="canje_premios" EntityType="Entidades.EF.canje_premios" />
+          <AssociationSet Name="FK_canje_premios_complejo_canje" Association="Entidades.EF.FK_canje_premios_complejo_canje">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_complejo_premio" Association="Entidades.EF.FK_canje_premios_complejo_premio">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_detalle_canje_premios" Association="Entidades.EF.FK_canje_premios_detalle_canje_premios">
+            <End Role="canje_premios" EntitySet="canje_premios" />
+            <End Role="canje_premios_detalle" EntitySet="canje_premios_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_canje_premios_premio" Association="Entidades.EF.FK_canje_premios_premio">
+            <End Role="premio" EntitySet="premios" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <EntitySet Name="socios" EntityType="Entidades.EF.socio" />
+          <AssociationSet Name="FK_canje_premios_socio" Association="Entidades.EF.FK_canje_premios_socio">
+            <End Role="socio" EntitySet="socios" />
+            <End Role="canje_premios" EntitySet="canje_premios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carga_puntos_socio" Association="Entidades.EF.FK_carga_puntos_socio">
+            <End Role="socio" EntitySet="socios" />
+            <End Role="carga_puntos" EntitySet="carga_puntos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_socio_complejo" Association="Entidades.EF.FK_socio_complejo">
+            <End Role="complejo" EntitySet="complejoes" />
+            <End Role="socio" EntitySet="socios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tarjeta_socio_socio" Association="Entidades.EF.FK_tarjeta_socio_socio">
+            <End Role="socio" EntitySet="socios" />
+            <End Role="tarjeta_socio" EntitySet="tarjeta_socio" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="s_lineas_credito_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="linea_eiv_id" Nullable="false" />
+          <Property Type="Int32" Name="tipo_demostracion_id" Nullable="false" />
+          <Property Type="Int32" Name="codigo_linea" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" MaxLength="255" />
+          <Property Type="Double" Name="tasa_liq" Nullable="false" />
+          <Property Type="Double" Name="importe_maximo" Nullable="false" />
+          <Property Type="Int32" Name="plazo" Nullable="true" />
+          <Property Type="Int32" Name="agrupacion" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_hasta" Nullable="true" />
+          <Property Type="Int32" Name="tipo_vehiculo_id" Nullable="false" />
+          <Property Type="Double" Name="aforo" Nullable="false" />
+          <Property Type="Double" Name="rci" Nullable="false" />
+          <Property Type="Int32" Name="tipo_linea_id" Nullable="false" />
+          <Property Type="Int32" Name="anio_antiguedad" Nullable="true" />
+          <Property Type="Int32" Name="moneda" Nullable="true" />
+          <Property Type="Double" Name="ingreso_minimo" Nullable="true" />
+          <Property Type="Int32" Name="antiguedad_laoral_minima" Nullable="true" />
+          <Property Type="Double" Name="endeudamiento_maximo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="LineasCreditoSelect_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="linea_eiv_id" Nullable="false" />
+          <Property Type="Int32" Name="tipo_demostracion_id" Nullable="false" />
+          <Property Type="Int32" Name="codigo_linea" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" MaxLength="255" />
+          <Property Type="Double" Name="tasa_liq" Nullable="false" />
+          <Property Type="Double" Name="importe_maximo" Nullable="false" />
+          <Property Type="Int32" Name="plazo" Nullable="true" />
+          <Property Type="Int32" Name="agrupacion" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_hasta" Nullable="true" />
+          <Property Type="Int32" Name="tipo_vehiculo_id" Nullable="false" />
+          <Property Type="Double" Name="aforo" Nullable="false" />
+          <Property Type="Double" Name="rci" Nullable="false" />
+          <Property Type="Int32" Name="tipo_linea_id" Nullable="false" />
+          <Property Type="Int32" Name="anio_antiguedad" Nullable="true" />
+          <Property Type="Int32" Name="moneda" Nullable="true" />
+          <Property Type="Double" Name="ingreso_minimo" Nullable="true" />
+          <Property Type="Int32" Name="antiguedad_laoral_minima" Nullable="true" />
+          <Property Type="Double" Name="endeudamiento_maximo" Nullable="true" />
+          <Property Type="Boolean" Name="es_0_km" Nullable="true" />
+          <Property Type="Int32" Name="modelo" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AspNet_Perfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Entidades.EF.AspNet_PerfilesRoles" FromRole="AspNet_Perfiles" ToRole="AspNetRole" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Entidades.EF.AspNet_PerfilesUsuarios" FromRole="AspNet_Perfiles" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNet_Perfiles" Relationship="Entidades.EF.AspNet_PerfilesRoles" FromRole="AspNetRole" ToRole="AspNet_Perfiles" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Entidades.EF.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Entidades.EF.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Entidades.EF.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="complejo_id" Type="Int32" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Entidades.EF.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Entidades.EF.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_AspNetUsers_complejo" FromRole="AspNetUser" ToRole="complejo" />
+          <NavigationProperty Name="AspNet_Perfiles" Relationship="Entidades.EF.AspNet_PerfilesUsuarios" FromRole="AspNetUser" ToRole="AspNet_Perfiles" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Entidades.EF.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="complejo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="3" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_baja" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Entidades.EF.FK_AspNetUsers_complejo" FromRole="complejo" ToRole="AspNetUser" />
+          <NavigationProperty Name="premios" Relationship="Entidades.EF.FK_premio_complejo" FromRole="complejo" ToRole="premio" />
+          <NavigationProperty Name="carga_puntos" Relationship="Entidades.EF.FK_carga_puntos_complejo" FromRole="complejo" ToRole="carga_puntos" />
+          <NavigationProperty Name="canje_premios" Relationship="Entidades.EF.FK_canje_premios_complejo_canje" FromRole="complejo" ToRole="canje_premios" />
+          <NavigationProperty Name="canje_premios1" Relationship="Entidades.EF.FK_canje_premios_complejo_premio" FromRole="complejo" ToRole="canje_premios" />
+          <NavigationProperty Name="socios" Relationship="Entidades.EF.FK_socio_complejo" FromRole="complejo" ToRole="socio" />
+        </EntityType>
+        <EntityType Name="premio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion_larga" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="puntos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="complejo_responsable_id" Type="Int32" />
+          <Property Name="desactivado" Type="Boolean" Nullable="false" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="path_imagenes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_premio_complejo" FromRole="premio" ToRole="complejo" />
+          <NavigationProperty Name="canje_premios" Relationship="Entidades.EF.FK_canje_premios_premio" FromRole="premio" ToRole="canje_premios" />
+        </EntityType>
+        <EntityType Name="provincia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tarjeta_socio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero_tarjeta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="0" />
+          <Property Name="activada" Type="Boolean" Nullable="false" />
+          <Property Name="observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="modo_activacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="socio_id" Type="Int32" />
+          <NavigationProperty Name="socio" Relationship="Entidades.EF.FK_tarjeta_socio_socio" FromRole="tarjeta_socio" ToRole="socio" />
+        </EntityType>
+        <EntityType Name="tipo_beneficio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="monto_dinero" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="puntos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="3" />
+          <Property Name="usuario_baja" Type="Binary" MaxLength="255" FixedLength="false" />
+          <NavigationProperty Name="carga_puntos" Relationship="Entidades.EF.FK_carga_puntos_tipo_beneficio" FromRole="tipo_beneficio" ToRole="carga_puntos" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="Entidades.EF.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entidades.EF.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="Entidades.EF.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entidades.EF.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_complejo">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="0..1" />
+          <End Type="Entidades.EF.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="complejo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_premio_complejo">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="0..1" />
+          <End Type="Entidades.EF.premio" Role="premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premio">
+              <PropertyRef Name="complejo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNet_PerfilesRoles">
+          <End Type="Entidades.EF.AspNet_Perfiles" Role="AspNet_Perfiles" Multiplicity="*" />
+          <End Type="Entidades.EF.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+        </Association>
+        <Association Name="AspNet_PerfilesUsuarios">
+          <End Type="Entidades.EF.AspNet_Perfiles" Role="AspNet_Perfiles" Multiplicity="*" />
+          <End Type="Entidades.EF.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="Entidades.EF.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="Entidades.EF.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="carga_puntos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="socio_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo_beneficio_id" Type="Int32" Nullable="false" />
+          <Property Name="monto_cargado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="puntos_cargados" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="tipo_beneficio_monto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="tipo_beneficio_puntos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="complejo_id" Type="Int32" Nullable="false" />
+          <Property Name="puntos_disponibles" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_carga_puntos_complejo" FromRole="carga_puntos" ToRole="complejo" />
+          <NavigationProperty Name="tipo_beneficio" Relationship="Entidades.EF.FK_carga_puntos_tipo_beneficio" FromRole="carga_puntos" ToRole="tipo_beneficio" />
+          <NavigationProperty Name="canje_premios_detalle" Relationship="Entidades.EF.FK_canje_premios_detalle_carga_puntos" FromRole="carga_puntos" ToRole="canje_premios_detalle" />
+          <NavigationProperty Name="socio" Relationship="Entidades.EF.FK_carga_puntos_socio" FromRole="carga_puntos" ToRole="socio" />
+        </EntityType>
+        <Association Name="FK_carga_puntos_complejo">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="1" />
+          <End Type="Entidades.EF.carga_puntos" Role="carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="complejo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carga_puntos_tipo_beneficio">
+          <End Type="Entidades.EF.tipo_beneficio" Role="tipo_beneficio" Multiplicity="1" />
+          <End Type="Entidades.EF.carga_puntos" Role="carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_beneficio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="tipo_beneficio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="canje_premios_detalle">
+          <Key>
+            <PropertyRef Name="canje_premio_id" />
+            <PropertyRef Name="carga_puntos_id" />
+          </Key>
+          <Property Name="canje_premio_id" Type="Int32" Nullable="false" />
+          <Property Name="carga_puntos_id" Type="Int32" Nullable="false" />
+          <Property Name="puntos_utilizados" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="carga_puntos" Relationship="Entidades.EF.FK_canje_premios_detalle_carga_puntos" FromRole="canje_premios_detalle" ToRole="carga_puntos" />
+          <NavigationProperty Name="canje_premios" Relationship="Entidades.EF.FK_canje_premios_detalle_canje_premios" FromRole="canje_premios_detalle" ToRole="canje_premios" />
+        </EntityType>
+        <Association Name="FK_canje_premios_detalle_carga_puntos">
+          <End Type="Entidades.EF.carga_puntos" Role="carga_puntos" Multiplicity="1" />
+          <End Type="Entidades.EF.canje_premios_detalle" Role="canje_premios_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carga_puntos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios_detalle">
+              <PropertyRef Name="carga_puntos_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="canje_premios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="socio_id" Type="Int32" Nullable="false" />
+          <Property Name="premio_id" Type="Int32" Nullable="false" />
+          <Property Name="puntos_canjeados" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="complejo_canje_id" Type="Int32" Nullable="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="premio_puntos_valor" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="premio_complejo_responsable_id" Type="Int32" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usaurio_modificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_canje_premios_complejo_canje" FromRole="canje_premios" ToRole="complejo" />
+          <NavigationProperty Name="complejo1" Relationship="Entidades.EF.FK_canje_premios_complejo_premio" FromRole="canje_premios" ToRole="complejo" />
+          <NavigationProperty Name="canje_premios_detalle" Relationship="Entidades.EF.FK_canje_premios_detalle_canje_premios" FromRole="canje_premios" ToRole="canje_premios_detalle" />
+          <NavigationProperty Name="premio" Relationship="Entidades.EF.FK_canje_premios_premio" FromRole="canje_premios" ToRole="premio" />
+          <NavigationProperty Name="socio" Relationship="Entidades.EF.FK_canje_premios_socio" FromRole="canje_premios" ToRole="socio" />
+        </EntityType>
+        <Association Name="FK_canje_premios_complejo_canje">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="1" />
+          <End Type="Entidades.EF.canje_premios" Role="canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="complejo_canje_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_complejo_premio">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="0..1" />
+          <End Type="Entidades.EF.canje_premios" Role="canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="premio_complejo_responsable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_detalle_canje_premios">
+          <End Type="Entidades.EF.canje_premios" Role="canje_premios" Multiplicity="1" />
+          <End Type="Entidades.EF.canje_premios_detalle" Role="canje_premios_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="canje_premios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios_detalle">
+              <PropertyRef Name="canje_premio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_canje_premios_premio">
+          <End Type="Entidades.EF.premio" Role="premio" Multiplicity="1" />
+          <End Type="Entidades.EF.canje_premios" Role="canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="premio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="premio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="socio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="documento" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_alta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="3" />
+          <Property Name="observaciones" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="puntos_actuales" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
+          <Property Name="complejo_alta_id" Type="Int32" />
+          <NavigationProperty Name="canje_premios" Relationship="Entidades.EF.FK_canje_premios_socio" FromRole="socio" ToRole="canje_premios" />
+          <NavigationProperty Name="carga_puntos" Relationship="Entidades.EF.FK_carga_puntos_socio" FromRole="socio" ToRole="carga_puntos" />
+          <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_socio_complejo" FromRole="socio" ToRole="complejo" />
+          <NavigationProperty Name="tarjeta_socio" Relationship="Entidades.EF.FK_tarjeta_socio_socio" FromRole="socio" ToRole="tarjeta_socio" />
+        </EntityType>
+        <Association Name="FK_canje_premios_socio">
+          <End Type="Entidades.EF.socio" Role="socio" Multiplicity="1" />
+          <End Type="Entidades.EF.canje_premios" Role="canje_premios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="canje_premios">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carga_puntos_socio">
+          <End Type="Entidades.EF.socio" Role="socio" Multiplicity="1" />
+          <End Type="Entidades.EF.carga_puntos" Role="carga_puntos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carga_puntos">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_socio_complejo">
+          <End Type="Entidades.EF.complejo" Role="complejo" Multiplicity="0..1" />
+          <End Type="Entidades.EF.socio" Role="socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="complejo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="socio">
+              <PropertyRef Name="complejo_alta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tarjeta_socio_socio">
+          <End Type="Entidades.EF.socio" Role="socio" Multiplicity="0..1" />
+          <End Type="Entidades.EF.tarjeta_socio" Role="tarjeta_socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="socio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tarjeta_socio">
+              <PropertyRef Name="socio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDDModelStoreContainer" CdmEntityContainer="ComunidadEntities">
+          <FunctionImportMapping FunctionImportName="s_lineas_credito" FunctionName="MDDModel.Store.s_lineas_credito">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LineasCreditoSelect" FunctionName="MDDModel.Store.LineasCreditoSelect">
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AspNet_Perfiles">
+            <EntityTypeMapping TypeName="Entidades.EF.AspNet_Perfiles">
+              <MappingFragment StoreEntitySet="AspNet_Perfiles">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Entidades.EF.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Entidades.EF.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Entidades.EF.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Entidades.EF.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="complejo_id" ColumnName="complejo_id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="complejoes">
+            <EntityTypeMapping TypeName="Entidades.EF.complejo">
+              <MappingFragment StoreEntitySet="complejo">
+                <ScalarProperty Name="usuario_baja" ColumnName="usuario_baja" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="premios">
+            <EntityTypeMapping TypeName="Entidades.EF.premio">
+              <MappingFragment StoreEntitySet="premio">
+                <ScalarProperty Name="path_imagenes" ColumnName="path_imagenes" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="desactivado" ColumnName="desactivado" />
+                <ScalarProperty Name="complejo_responsable_id" ColumnName="complejo_responsable_id" />
+                <ScalarProperty Name="puntos" ColumnName="puntos" />
+                <ScalarProperty Name="descripcion_larga" ColumnName="descripcion_larga" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="provincias">
+            <EntityTypeMapping TypeName="Entidades.EF.provincia">
+              <MappingFragment StoreEntitySet="provincia">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Entidades.EF.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tarjeta_socio">
+            <EntityTypeMapping TypeName="Entidades.EF.tarjeta_socio">
+              <MappingFragment StoreEntitySet="tarjeta_socio">
+                <ScalarProperty Name="socio_id" ColumnName="socio_id" />
+                <ScalarProperty Name="modo_activacion" ColumnName="modo_activacion" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="activada" ColumnName="activada" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="numero_tarjeta" ColumnName="numero_tarjeta" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_beneficio">
+            <EntityTypeMapping TypeName="Entidades.EF.tipo_beneficio">
+              <MappingFragment StoreEntitySet="tipo_beneficio">
+                <ScalarProperty Name="usuario_baja" ColumnName="usuario_baja" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="puntos" ColumnName="puntos" />
+                <ScalarProperty Name="monto_dinero" ColumnName="monto_dinero" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNet_PerfilesRoles" TypeName="Entidades.EF.AspNet_PerfilesRoles" StoreEntitySet="AspNet_PerfilesRoles">
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RolesId" />
+            </EndProperty>
+            <EndProperty Name="AspNet_Perfiles">
+              <ScalarProperty Name="id" ColumnName="PerfilesId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AspNet_PerfilesUsuarios" TypeName="Entidades.EF.AspNet_PerfilesUsuarios" StoreEntitySet="AspNet_PerfilesUsuarios">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UsuariosId" />
+            </EndProperty>
+            <EndProperty Name="AspNet_Perfiles">
+              <ScalarProperty Name="id" ColumnName="PerfilesId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Entidades.EF.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="carga_puntos">
+            <EntityTypeMapping TypeName="Entidades.EF.carga_puntos">
+              <MappingFragment StoreEntitySet="carga_puntos">
+                <ScalarProperty Name="puntos_disponibles" ColumnName="puntos_disponibles" />
+                <ScalarProperty Name="complejo_id" ColumnName="complejo_id" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="tipo_beneficio_puntos" ColumnName="tipo_beneficio_puntos" />
+                <ScalarProperty Name="tipo_beneficio_monto" ColumnName="tipo_beneficio_monto" />
+                <ScalarProperty Name="puntos_cargados" ColumnName="puntos_cargados" />
+                <ScalarProperty Name="monto_cargado" ColumnName="monto_cargado" />
+                <ScalarProperty Name="tipo_beneficio_id" ColumnName="tipo_beneficio_id" />
+                <ScalarProperty Name="socio_id" ColumnName="socio_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="canje_premios_detalle">
+            <EntityTypeMapping TypeName="Entidades.EF.canje_premios_detalle">
+              <MappingFragment StoreEntitySet="canje_premios_detalle">
+                <ScalarProperty Name="puntos_utilizados" ColumnName="puntos_utilizados" />
+                <ScalarProperty Name="carga_puntos_id" ColumnName="carga_puntos_id" />
+                <ScalarProperty Name="canje_premio_id" ColumnName="canje_premio_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="canje_premios">
+            <EntityTypeMapping TypeName="Entidades.EF.canje_premios">
+              <MappingFragment StoreEntitySet="canje_premios">
+                <ScalarProperty Name="usaurio_modificacion" ColumnName="usaurio_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="premio_complejo_responsable_id" ColumnName="premio_complejo_responsable_id" />
+                <ScalarProperty Name="premio_puntos_valor" ColumnName="premio_puntos_valor" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="complejo_canje_id" ColumnName="complejo_canje_id" />
+                <ScalarProperty Name="puntos_canjeados" ColumnName="puntos_canjeados" />
+                <ScalarProperty Name="premio_id" ColumnName="premio_id" />
+                <ScalarProperty Name="socio_id" ColumnName="socio_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="socios">
+            <EntityTypeMapping TypeName="Entidades.EF.socio">
+              <MappingFragment StoreEntitySet="socio">
+                <ScalarProperty Name="complejo_alta_id" ColumnName="complejo_alta_id" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="puntos_actuales" ColumnName="puntos_actuales" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_alta" ColumnName="usuario_alta" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

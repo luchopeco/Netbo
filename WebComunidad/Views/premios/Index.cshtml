@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Entidades.EF.premio>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Gestion De Premios</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 form-group pull-right top_search">
+                    <small class="text-danger">Desde aqui se gestionan los premios para ser canjeados por los puntos acumulados por los socios</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Premios</div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Nuevo Premio
+                        </a>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed">
+                                <tr>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Descripcion
+                                    </th>
+                                    <th>
+                                        Puntos
+                                    </th>
+                                    <th>
+                                        Complejo Resp.
+                                    </th>
+                                    <th>
+                                        Desactivado
+                                    </th>
+                                    <th>
+                                        Usuario
+                                    </th>
+                                    <th>
+                                        Fecha Alta
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.descripcion_larga)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.puntos)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.complejo.descripcion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.desactivado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.usuario_alta)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.fecha_alta)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", new {id = item.id})" title="Detalle" class="btn btn-xs btn-primary">
+                                                <i class="fa fa-bars"></i>
+                                            </a>
+                                            <a href="@Url.Action("Edit", new {id = item.id})" title="Editar" class="btn btn-xs btn-info">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

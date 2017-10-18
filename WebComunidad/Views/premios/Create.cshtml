@@ -1,0 +1,108 @@
+﻿@model Entidades.EF.premio
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Agregando Premios</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Nuevo Premio</div>
+            <div class="x_content">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Nombre
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control", @required="required" } })
+                                        @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    Puntos
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.puntos, new { htmlAttributes = new { @class = "form-control", @required = "required", @type="number" } })
+                                        @Html.ValidationMessageFor(model => model.puntos, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Descripcion Larga
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-edit"></i></span>
+                                        @Html.EditorFor(model => model.descripcion_larga, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.descripcion_larga, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" title="Es el complejo responsable de la carga, no es obligatorio">
+                                    Complejo Responsable
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        @Html.DropDownListFor(model => model.complejo_responsable_id, ViewBag.ListComplejos as SelectList, "No obligatorio", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.complejo_responsable_id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    Desactivado
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-check"></i></span>
+                                        @Html.EditorFor(model => model.desactivado)
+                                        @Html.ValidationMessageFor(model => model.desactivado, "", new { @class = "text-danger" })
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Agregar" class="btn btn-success btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+}

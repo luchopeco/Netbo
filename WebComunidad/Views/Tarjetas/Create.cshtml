@@ -1,0 +1,88 @@
+﻿@model Entidades.EF.tarjeta_socio
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Agregando Tarjeta</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Nueva Tarjeta</div>
+            <div class="x_content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            Nro Tarjeta <small class="text-danger">No obligatorio</small>
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                </span>
+                                @Html.EditorFor(model => model.numero_tarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.numero_tarjeta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Activada
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-check"></i></span>
+                                @Html.EditorFor(model => model.activada)
+                                @Html.ValidationMessageFor(model => model.activada, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Observaciones
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-edit"></i></span>
+                                @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.observaciones, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Agregar" class="btn btn-success btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+}

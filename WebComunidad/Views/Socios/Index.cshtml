@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Entidades.EF.socio>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Gestion De Socios</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjExito != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjExito</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Socios</div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Create")" class="btn btn-block btn-info">
+                            Nuevo Socio
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed">
+                                <tr>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                    </th>
+                                    <th>
+                                        Puntos
+                                    </th>
+                                    <th>
+                                        Documento
+                                    </th>
+                                    <th>
+                                        Celular
+                                    </th>
+                                    <th>
+                                        Mail
+                                    </th>
+                                    <th>
+                                        Direccion
+                                    </th>
+                                    <th>
+                                        Localidad
+                                    </th>
+                                    <th title="Complejo Alta">
+                                        Comp. Alta
+                                    </th>
+                                    <th>
+                                        Fecha Alta
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.apellido),  @Html.DisplayFor(modelItem => item.nombre)
+                                        </td>
+                                        <td>
+                                            @if (item.tarjeta_socio.Count(t => t.activada == true) > 0)
+                                            {
+                                                @item.tarjeta_socio.FirstOrDefault(t => t.activada == true).numero_tarjeta
+                                            }
+                                            else
+                                            {
+                                                <span>-----</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.puntos_actuales)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.documento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.celular)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.mail)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.direccion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.localidad) - @Html.DisplayFor(modelItem => item.provincia)
+                                        </td>
+                                        <td title="Complejo Alta">
+                                            @Html.DisplayFor(modelItem => item.complejo.descripcion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.fecha_alta)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", new {id = item.id})" title="Editar Perfil" class="btn btn-xs btn-info">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Details", new {id = item.id})" title="Detalle" class="btn btn-xs btn-primary">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

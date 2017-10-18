@@ -1,0 +1,158 @@
+﻿@model List<Entidades.EF.AspNet_Perfiles>
+
+@{
+    ViewBag.Title = "Perfiles";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+
+@using (Html.BeginForm("Perfiles", "Usuarios", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input class="hidden" value="@ViewBag.IdUsuario" name="id-usuario" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Perfiles del Usuario: @ViewBag.Usuario</h3>
+                </div>
+
+                <div class="title_right">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    if (ViewBag.MsjError != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>@ViewBag.MsjError</strong>
+                </div>
+            </div>
+        </div>
+    }
+    if (ViewBag.MsjExito != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>@ViewBag.MsjExito</strong>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Perfiles</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            Marcar Todos
+                            <input class="cbx-todos" name="todos" value="0" type="checkbox">
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="display table" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Perfil
+                                            </th>
+                                            <th>
+                                                Activo
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        @for (int count = 0; count < Model.Count(); count++)
+                                        {
+                                            
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(model => model[count].descripcion)
+                                                    @Html.TextBoxFor(model => model[count].descripcion, new { @class = "hidden" })
+                                                    @Html.TextBoxFor(model => model[count].id, new { @class = "hidden" })
+                                                </td>
+                                                <td>
+                                                    @Html.CheckBoxFor(model => model[count].Activo, new { @class = "cbx-confirmar" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Modificar" class="btn btn-success btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Script{
+    <script>
+        $(document).ready(function () {
+            $("#table").DataTable(
+                 {
+                     "paging": false,
+                     "language": {
+                         "lengthMenu": "Mostrando _MENU_ Filas por Pagina",
+                         "zeroRecords": "Nothing found - sorry",
+                         "info": "Mostrando Pagina _PAGE_ De _PAGES_",
+                         "infoEmpty": "No se Encontraron Resultados",
+                         "infoFiltered": "(Filtrados de un Total de  _MAX_ Filas)",
+                         "paginate": {
+                             "first": "Primer",
+                             "last": "Ultimo",
+                             "next": ">",
+                             "previous": "<"
+                         },
+                         "search": "Buscar:",
+                     }
+                 });
+            //para confirmar todos los pedidos
+            $(".cbx-todos").click(function () {
+                $("input:checkbox").prop("checked", $(this).prop("checked"));
+            });
+        });
+    </script>
+}
+

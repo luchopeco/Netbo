@@ -1,0 +1,60 @@
+﻿@model Entidades.EF.AspNetUser
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Detalle Usuario</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+               Usuario
+            </div>
+            <div class="x_content">
+                <dl class="dl-horizontal">
+                    <dt>
+                       Nombre Usuario
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+
+                    <dt>
+                       Roles
+                    </dt>
+
+                    <dd>
+                        @foreach (var rol in Model.AspNetRoles)
+                        {
+                            <div> @rol.Name</div>
+                        }                        
+                    </dd>
+                  </dl>
+            </div>
+        </div>
+    </div>
+</div>
+            

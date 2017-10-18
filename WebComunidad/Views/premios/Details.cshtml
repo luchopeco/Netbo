@@ -1,0 +1,124 @@
+﻿@model Entidades.EF.premio
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Detalle Premio</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Premio</div>
+            <div class="x_content">
+                <div class="row">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.nombre)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.nombre)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.descripcion_larga)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.descripcion_larga)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.puntos)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.puntos)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.complejo_responsable_id)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.complejo_responsable_id)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.desactivado)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.desactivado)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.usuario_alta)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.usuario_alta)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.fecha_alta)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.fecha_alta)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.usuario_modificacion)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.usuario_modificacion)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.fecha_modificacion)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.fecha_modificacion)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.path_imagenes)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.path_imagenes)
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>    
+    @Html.ActionLink("Volver", "Index")
+</p>

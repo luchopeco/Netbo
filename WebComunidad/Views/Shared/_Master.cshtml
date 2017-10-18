@@ -1,0 +1,410 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.:NetBol-WiphalaSistemas:.</title>
+    @Styles.Render("~/Content/themecss")
+    @Styles.Render("~/Content/datatable")
+    <link rel="shortcut icon" href="~/Content/img/favicon.ico">
+</head>
+<body class="nav-md footer_fixed">
+    <div class="container body ">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="@Url.Content("~/Home/Index")" class="site_title">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Netbol</span>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="~/Content/Theme/images/user.png" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Hola,</span>
+                            @if (Request.IsAuthenticated)
+                            {
+                                @User.Identity.GetUserName()
+                            }
+
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuSeguridad"))
+                        {
+                            <div class="menu_section active">
+                                <h3>Seguridad</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a><i class="fa fa-key" aria-hidden="true"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="@Url.Content("~/Usuarios/Index")"><i class="fa fa-user"></i>Gestion Usuarios</a></li>
+                                            <li><a href="@Url.Content("~/Perfiles/Index")"><i class="fa fa-eye" aria-hidden="true"></i>Gestion Perfiles</a></li>
+                                            <li><a href="@Url.Content("~/Roles/Index")"><i class="fa fa-users" aria-hidden="true"></i>Gestion Roles</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>                        
+                            </div>
+                        }
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuSeguridadFinal"))
+                        {
+                            <div class="menu_section active">
+                                <h3>Usuarios</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a><i class="fa fa-key" aria-hidden="true"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="@Url.Content("~/Usuarios/Finales")"><i class="fa fa-user"></i>Gestion Usuarios</a></li>                                            
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativo"))
+                        {
+                            <div class="menu_section active">
+                                <h3>Operaciones</h3>
+                                <ul class="nav side-menu">
+
+                                    @if (Request.IsAuthenticated && @User.IsInRole("CargaPuntosControllerCreate"))
+                                    {
+                                        <li><a href="@Url.Content("~/CargaPuntos/Create")"><i class="fa fa-star" aria-hidden="true"></i>Cargar Puntos</a></li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosControllerCreate"))
+                                    {
+                                        <li><a href="@Url.Content("~/CanjePremios/Create")"><i class="fa fa-shopping-bag" aria-hidden="true"></i>Canjear Premios</a></li>
+                                    }
+
+                                    @if (Request.IsAuthenticated && @User.IsInRole("SociosControllerCreate"))
+                                    {
+                                        <li><a href="@Url.Content("~/Socios/Create")"><i class="fa fa-users" aria-hidden="true"></i>Nuevo Socio</a></li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativoPuntos"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-star" aria-hidden="true"></i> Puntos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CargaPuntosControllerCreate"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CargaPuntos/Create")"><i class="fa fa-star" aria-hidden="true"></i>Cargar Puntos</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CargaPuntosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CargaPuntos")"><i class="fa fa-search" aria-hidden="true"></i>Consulta Cargas</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CargaPuntosControllerTodas"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CargaPuntos/Todas")"><i class="fa fa-search" aria-hidden="true"></i>Consulta Cargas Todas</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativoCanjePremios"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-shopping-bag" aria-hidden="true"></i> Canje Premios <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosControllerCreate"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CanjePremios/Create")"><i class="fa fa-shopping-bag" aria-hidden="true"></i>Canjear Premios</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CanjePremios/")"><i class="fa fa-search" aria-hidden="true"></i>Consulta Canjes</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosControllerTodos"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CanjePremios/todos")"><i class="fa fa-search" aria-hidden="true"></i>Consulta Canjes Todos</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativoTarjetas"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-credit-card" aria-hidden="true"></i> Tarjetas <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("TarjetasControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/tarjetas/Index")"><i class="fa fa-credit-card"></i>Gestion Tarjetas</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativoSocios"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-users" aria-hidden="true"></i> Socios <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("SociosControllerCreate"))
+                                                {
+                                                    <li><a href="@Url.Content("~/Socios/Create")"><i class="fa fa-users" aria-hidden="true"></i>Nuevo Socio</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("SociosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/Socios/Index")"><i class="fa fa-users" aria-hidden="true"></i>Gestion Socios</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("SociosControllerPuntosCargados"))
+                                                {
+                                                    <li><a href="@Url.Content("~/Socios/PuntosCargados")"><i class="fa fa-star" aria-hidden="true"></i>Consulta Cargas Puntos</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+
+
+                        }
+
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuConfiguracion"))
+                        {
+                            <div class="menu_section">
+                                <h3>Configuracion</h3>
+
+                                <ul class="nav side-menu">
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuConfiguracionGeneral"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-table" aria-hidden="true"></i> Config. Gral <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("PremiosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/premios/index")"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Premios</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("ComplejosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/complejos/index")"><i class="fa fa-map-marker" aria-hidden="true"></i>Complejos</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("TiposBeneficiosControllerIndex"))
+                                                {
+                                                    <li><a href="@Url.Content("~/tiposbeneficios/index")"><i class="fa fa-gift" aria-hidden="true"></i>Tipos beneficios</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuEstadisticas"))
+                        {
+                            <div class="menu_section">
+                                <h3>Estadisticas</h3>
+
+                                <ul class="nav side-menu">
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuEstadisticasCanjePremios"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-bar-chart" aria-hidden="true"></i>Canjes Premios<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosConsultasControllerPorComplejo"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CanjePremiosConsultas/PorComplejo")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Detalle X Complejos</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CanjePremiosConsultasControllerTotalesPorComplejo"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CanjePremiosConsultas/TotalesPorComplejo")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Totales X Complejos</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuEstadisticasCargaPuntos"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-bar-chart" aria-hidden="true"></i>Carga Puntos<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("CargaPuntosConsultasControllerTotales"))
+                                                {
+                                                    <li><a href="@Url.Content("~/CargaPuntosConsultas/totales")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Total</a></li>
+                                                }                                              
+                                            </ul>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+
+                        @*<div class="menu_section">
+                                <h3>Live On</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="e_commerce.html">E-commerce</a></li>
+                                            <li><a href="projects.html">Projects</a></li>
+                                            <li><a href="project_detail.html">Project Detail</a></li>
+                                            <li><a href="contacts.html">Contacts</a></li>
+                                            <li><a href="profile.html">Profile</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="page_403.html">403 Error</a></li>
+                                            <li><a href="page_404.html">404 Error</a></li>
+                                            <li><a href="page_500.html">500 Error</a></li>
+                                            <li><a href="plain_page.html">Plain Page</a></li>
+                                            <li><a href="login.html">Login Page</a></li>
+                                            <li><a href="pricing_tables.html">Pricing Tables</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#level1_1">Level One</a>
+                                            <li>
+                                                <a>Level One<span class="fa fa-chevron-down"></span></a>
+                                                <ul class="nav child_menu">
+                                                    <li class="sub_menu">
+                                                        <a href="level2.html">Level Two</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#level2_1">Level Two</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#level2_2">Level Two</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#level1_2">Level One</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                                </ul>
+                            </div>*@
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        @*<a data-toggle="tooltip" data-placement="top" title="Settings">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Logout">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                            </a>*@
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <i class="fa fa-user" aria-hidden="true"></i>  @User.Identity.GetUserName()
+                                    }
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    @*<li><a href="javascript:;"> Profile</a></li>*@
+                                    @*<li>
+                                            <a href="javascript:;">
+                                                <span class="badge bg-red pull-right">50%</span>
+                                                <span>Settings</span>
+                                            </a>
+                                        </li>*@
+                                    @*<li><a href="javascript:;">Help</a></li>*@
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                        }
+                                    }
+                                    <li><a href="@Url.Content("~/manage/changepassword")"><i class="fa fa-key pull-right" aria-hidden="true"></i>Cambiar Contraseña</a></li>
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="" title="Complejo donde esta logueado el usuario">
+                                <a href="#" class="user-profile dropdown-toggle">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>   @(((ClaimsIdentity)User.Identity).FindFirstValue("Complejo"))
+                                    @{ var cl = ((ClaimsIdentity)User.Identity);
+                                        var caca = "2"; }
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                @RenderBody()
+            </div>
+            <br />
+            <br />
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    <a href="www.wiphalasistemas.com.ar" target="_blank">Wiphala Sistemas</a>
+                </div>
+                <div class="pull-right">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i><strong>@(((ClaimsIdentity)User.Identity).FindFirstValue("Complejo"))</strong> -
+                </div>
+
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    @Scripts.Render("~/Content/themejs")
+    @Scripts.Render("~/Content/datatablejs")
+    <script>
+        $(document).ready(function () {
+            var icons = new Skycons({
+                "color": "#73879C"
+            }),
+              list = [
+                "clear-day", "clear-night", "partly-cloudy-day",
+                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                "fog"
+              ],
+              i;
+
+            for (i = list.length; i--;)
+                icons.set(list[i], list[i]);
+
+            icons.play();
+        });
+    </script>
+    @RenderSection("Script", false)
+</body>
+</html>

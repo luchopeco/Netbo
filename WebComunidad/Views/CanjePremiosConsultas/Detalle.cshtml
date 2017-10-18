@@ -1,0 +1,93 @@
+﻿@model Entidades.EF.canje_premios
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Detalle Del Canje</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+                    <div class="count">@Html.DisplayFor(model => model.premio.nombre) </div>
+                    <h3>@Html.DisplayFor(model => model.puntos_canjeados) Puntos </h3>
+                    <p>Canjeados en <strong> @Html.DisplayFor(model => model.complejo.descripcion) </strong> el dia @Html.DisplayFor(model => model.fecha_alta)  </p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-user"></i></div>
+                    <div class="count">@Html.DisplayFor(model => model.socio.apellido), @Html.DisplayFor(model => model.socio.apellido) </div>
+                    <h3>Tarjeta Nro: @Html.DisplayFor(model => model.socio.TarjetaActual.numero_tarjeta)</h3>
+                    <p>El premio fue dado por el usuario <strong> @Html.DisplayFor(model => model.usuario_alta)</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.complejo1 != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success " role="alert">
+                El Complejo responsable de la adquisicion del premio fue <strong>@Model.complejo1.descripcion</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-8 col-lg-offset-2"><p class="text-center text-danger">@Model.observaciones</p></div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Detalles de las Cargas de Puntos del Socio utilizadas para realizar el canje del premio</h2>
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="x_content">
+                @foreach (var cp in Model.canje_premios_detalle.OrderByDescending(c => c.carga_puntos.fecha_alta))
+                {
+                    <article class="media event">
+                        <a class="pull-left date">
+                            <p class="month">Puntos</p>
+                            <p class="day">@cp.puntos_utilizados</p>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">El dia <strong> @cp.carga_puntos.fecha_alta </strong> en el complejo <strong>@cp.carga_puntos.complejo.descripcion</strong></a>
+                            <p>Se cargaron <strong> @cp.carga_puntos.puntos_cargados  puntos </strong> a cambio de <strong> @cp.carga_puntos.tipo_beneficio.descripcion</strong> , por un monto de <strong>$ @cp.carga_puntos.monto_cargado </strong></p>
+                            <p>De esta carga quedan disponibles actualmente @cp.carga_puntos.puntos_disponibles puntos</p>
+                        </div>
+                    </article>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

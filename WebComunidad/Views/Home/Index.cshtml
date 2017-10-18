@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="jumbotron">
+    <h1>Netbol Comunidad de Fútbol.</h1>
+    <h2>Complejo  <strong>@(((ClaimsIdentity)User.Identity).FindFirstValue("Complejo"))</strong> </h2>
+    <p class="lead"></p>
+    @if (ViewBag.MsjError != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>@ViewBag.MsjError</strong>
+                </div>
+            </div>
+        </div>
+    }
+</div>

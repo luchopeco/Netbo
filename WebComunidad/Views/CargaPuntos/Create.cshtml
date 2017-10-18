@@ -1,0 +1,353 @@
+﻿@model Entidades.EF.carga_puntos
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div id="cargando" style="position: fixed; top: 2%; left: 50%; z-index: 1051;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Carga De Puntos</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 pull-right top_search">
+                    <small class="text-danger">Desde aqui se cargan los puntos a los socios. Seleccione un socio, eliga un tipo debeneficio e indique el monto de dinero, mediante el cual sumara los puntos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjError != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjError</strong>
+            </div>
+        </div>
+    </div>
+}
+<div id="panel-error"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Nueva Carga de Puntos</div>
+            <div class="x_content">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.socio_id, new { @id = "txt-socio-id" })
+                        @Html.HiddenFor(model => model.puntos_cargados, new { @id = "txt-puntos-cargados" })
+                        @Html.HiddenFor(model => model.tipo_beneficio_monto, new { @id = "txt-tipo-beneficio-monto" })
+                        @Html.HiddenFor(model => model.tipo_beneficio_puntos, new { @id = "txt-tipo-beneficio-puntos" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel" id="panel-socio">
+                                    <div class="x_title"><i class="fa fa-user"></i> Socio</div>
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Tarjeta
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    <input class="form-control " id="txt-nro-tarjeta" type="text" placeholder="Nro Tarjeta">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-buscar-tarjeta"><i class="fa fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Socio (Apellido - Documento)
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input class="form-control" tabindex="-1" id="txt-ape-doc-socio" type="text" placeholder="Apellido o Numero Documento">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-buscar-socio"><i class="fa fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row hidden" id="panel-socio-encontrado">
+                                            <div class="col-md-12">
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2>Socio<small>Encontrado</small></h2>
+                                                        <div class="clearfix"></div>
+                                                        <div>
+                                                            <div class="x_content">
+                                                                <blockquote>
+                                                                    <p><strong id="lbl-nombre-socio"></strong>, Tarjeta Nro: <strong id="lbl-tarjeta-socio"></strong>, Doc: <strong id="lbl-documento-socio"></strong>, Mail: <strong id="lbl-mail-socio"></strong> , Puntos:  <strong id="lbl-puntos-socio"></strong> </p>
+                                                                </blockquote>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel" id="panel-puntos">
+                                    <div class="x_title"> <i class="fa fa-star"></i>Puntos</div>
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Tipo Beneficio
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
+                                                    @Html.DropDownListFor(model => model.tipo_beneficio_id, ViewBag.ListTiposBeneficios as SelectList, "", new { @class = "form-control", @required = "required", @id = "cbx-tipo-beneficio" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Monto
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon">$</span>
+                                                    @Html.EditorFor(model => model.monto_cargado, new { htmlAttributes = new { @class = "form-control", @type = "number", @id = "txt-monto-cargado" } })
+                                                    @Html.ValidationMessageFor(model => model.monto_cargado, "", new { @class = "text-danger" })
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-validar">Validar Carga</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row hidden" id="panel-puntos-sumar">
+                                            <div class="col-md-12">
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2>Puntos a Sumar <span id="lbl-puntos"></span></h2>
+                                                        <div class="clearfix"></div>
+                                                        <div>
+                                                            <div class="x_content">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <blockquote>
+                                                                            <p id="lbl-puntos-sumar"></p>
+                                                                        </blockquote>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Observaciones</h2>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                            <div class="x_content">
+                                                @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.observaciones, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Cargar" class="btn btn-success btn-block" id="btn-agregar" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var errorTarjeta = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>No se ha encontrado un socio para la tarjeta indicada</strong></div></div></div>";
+        var errorValidacion = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Debe buscar un socio, seleccionar un tipo de beneficio y agregar un monto a cargar.</strong></div></div></div>";
+        $(function () {
+            $("#btn-buscar-tarjeta").click(function (event) {
+                $("#resultado-socio").html("");
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                event.preventDefault();
+                var nroTarjeta = $("#txt-nro-tarjeta").val();
+                $.ajax({
+                    url: "SocioTarjeta",
+                    type: "POST",
+                    dataType: "json",
+                    data: { 'nrotarjeta': nroTarjeta }
+                })
+                   .done(function (data) {
+                       if (jQuery.isEmptyObject(data.id)) {
+                           $("#panel-error").html(errorTarjeta);
+                           $("#panel-socio-encontrado").addClass("hidden");
+                           $("#txt-socio-id").val("");
+                       }
+                       else {
+                           $("#txt-socio-id").val(data.id);
+                           $("#panel-socio-encontrado").removeClass("hidden");
+                           $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
+                           $('#lbl-documento-socio').html(data.documento);
+                           $('#lbl-obs-socio').html(data.observaciones);
+                           $('#lbl-mail-socio').html(data.mail);
+                           $('#lbl-tarjeta-socio').html(data.numero_tarjeta);
+                           $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#panel-socio').find(':input').addClass('disabled');
+                           $('#panel-socio').find(':input').attr('readonly', true);
+                       }
+                       $('#cargando').html('');
+                   })
+                   .fail(function (error) {
+                       alert("Se ha Producido un error intente mas tarde nuevamente");
+                       $('#cargando').html('');
+                   })
+
+            });
+
+            $("#txt-ape-doc-socio").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "SocioApeDoc",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Prevent value from being put in the input:
+                    // Set the next input's value to the "value" of the item.
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    $("#txt-socio-id").val(ui.item.value);
+                    event.preventDefault();
+                },
+                focus: function (event, ui) {
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    event.preventDefault();
+                },
+                minLength: 4
+            });
+
+            $("#btn-buscar-socio").click(function (event) {
+                $("#resultado-socio").html("");
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                event.preventDefault();
+                var idSocio = $("#txt-socio-id").val();
+                $.ajax({
+                    url: "SocioId",
+                    type: "POST",
+                    dataType: "json",
+                    data: { 'idSocio': idSocio }
+                })
+                   .done(function (data) {
+                       if (jQuery.isEmptyObject(data.id)) {
+                           $("#panel-error").html(errorTarjeta);
+                           $("#panel-socio-encontrado").addClass("hidden");
+                           $("#txt-socio-id").val("");
+                       }
+                       else {
+                           $("#txt-socio-id").val(data.id);
+                           $("#panel-socio-encontrado").removeClass("hidden");
+                           $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
+                           $('#lbl-documento-socio').html(data.documento);
+                           $('#lbl-obs-socio').html(data.observaciones);
+                           $('#lbl-mail-socio').html(data.mail);
+                           $('#lbl-tarjeta-socio').html(data.numero_tarjeta);
+                           $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#panel-socio').find(':input').addClass('disabled');
+                           $('#panel-socio').find(':input').attr('readonly', true);
+                       }
+                       $('#cargando').html('');
+                   })
+                   .fail(function (error) {
+                       alert("Se ha Producido un error intente mas tarde nuevamente");
+                       $('#cargando').html('');
+                   })
+
+            });
+
+            $("#btn-validar").click(function (event) {
+                if ($("#txt-monto").val() == "" || $("#cbx-tipo-beneficio").val() == "") {
+                    $("#panel-error").html(errorValidacion);
+                }
+                else {
+                    $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                    event.preventDefault();
+                    var monto = $("#txt-monto-cargado").val();
+                    var idTipoBeneficio = $("#cbx-tipo-beneficio").val();
+                    $.ajax({
+                        url: "ValidarCargaPunto",
+                        type: "POST",
+                        dataType: "json",
+                        data: { 'monto': monto, 'idTipoBeneficio': idTipoBeneficio }
+                    })
+                       .done(function (data) {
+                           if (jQuery.isEmptyObject(data.Puntos)) {
+                               $("#panel-error").html(errorValidacion);
+                               $("#panel-puntos-sumar").addClass("hidden");
+                               $("#txt-puntos-cargados").val("");
+                               $("#txt-tipo-beneficio-monto").val("");
+                               $("#ttxt-tipo-beneficio-puntos").val("");
+                           }
+                           else {
+                               $("#txt-puntos-cargados").val(data.Puntos);
+                               $("#txt-tipo-beneficio-monto").val(data.TipoBeneficioMonto);
+                               $("#txt-tipo-beneficio-puntos").val(data.TipoBeneficioPunto);
+                               $("#panel-puntos-sumar").removeClass("hidden");
+                               var txtTipoBene = $('#cbx-tipo-beneficio option:selected').text();
+                               var lblPuntosSumar = "Se sumaran " + data.Puntos + " Puntos. (" + txtTipoBene + ": $" + data.TipoBeneficioMonto + " pesos, equivale a " + data.TipoBeneficioPunto + " puntos)";
+                               $('#lbl-puntos-sumar').html(lblPuntosSumar);
+                               $('#lbl-puntos').html(data.Puntos + ' puntos');
+                               $('#panel-puntos').find(":input").addClass("disabled");
+                               $('#panel-puntos').find(":input").attr("readonly", true);
+                           }
+                           $('#cargando').html('');
+                       })
+                       .fail(function (error) {
+                           alert("Se ha Producido un error intente mas tarde nuevamente");
+                           $('#cargando').html('');
+                       })
+                }
+            });
+
+
+            $("#btn-agregar").click(function (e) {
+                e.preventDefault();
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                if ($("#txt-socio-id").val() == "" || $("#txt-puntos-cargados").val() == "") {
+                    $("#panel-error").html(errorValidacion);
+                    $('#cargando').html("");
+                }
+                else {
+                    $("form").submit();
+                }
+
+            });
+
+        });
+    </script>
+}

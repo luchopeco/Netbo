@@ -1,0 +1,341 @@
+﻿@model Entidades.EF.canje_premios
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div id="cargando" style="position: fixed; top: 2%; left: 50%; z-index: 1051;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Canje de Premios</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 pull-right top_search">
+                    <small class="text-danger">Desde aqui se canjean los premios con los puntos acumulados de los Socios</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjError != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjError</strong>
+            </div>
+        </div>
+    </div>
+}
+<div id="panel-error"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Nuevo Canje de Premio</div>
+            <div class="x_content">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.socio_id, new { @id = "txt-socio-id" })
+                        @Html.HiddenFor(model => model.puntos_canjeados, new { @id = "txt-puntos-canjeados", @required = "required" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel" id="panel-socio">
+                                    <div class="x_title"><i class="fa fa-user"></i> Socio</div>
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Tarjeta
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                    <input class="form-control " id="txt-nro-tarjeta" type="text" placeholder="Nro Tarjeta">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-buscar-tarjeta"><i class="fa fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                Socio (Apellido - Documento)
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <input class="form-control" tabindex="-1" id="txt-ape-doc-socio" type="text" placeholder="Apellido o Numero Documento">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-buscar-socio"><i class="fa fa-search"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row hidden" id="panel-socio-encontrado">
+                                            <div class="col-md-12">
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2>Socio<small>Encontrado</small></h2>
+                                                        <div class="clearfix"></div>
+                                                        <div>
+                                                            <div class="x_content">
+                                                                <blockquote>
+                                                                    <p><strong id="lbl-nombre-socio"></strong>, Puntos: <strong id="lbl-puntos-socio"></strong>, Doc: <strong id="lbl-documento-socio"></strong></p>
+                                                                </blockquote>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel" id="panel-premio">
+                                    <div class="x_title"><i class="fa fa-shopping-bag" aria-hidden="true"></i>Premio</div>
+                                    <div class="x_content">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                Premio
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+                                                    @Html.DropDownListFor(model => model.premio_id, ViewBag.ListPremios as SelectList, "", new { @class = "form-control", @required = "required", @id = "cbx-premio" })
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-success" id="btn-validar">Validar Canje</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row hidden" id="panel-canje-premio">
+                                            <div class="col-md-12">
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2>Premio <span id="lbl-premio"></span></h2>
+                                                        <div class="clearfix"></div>
+                                                        <div>
+                                                            <div class="x_content">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <blockquote>
+                                                                            <p id="lbl-canje-premio"></p>
+                                                                        </blockquote>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Observaciones</h2>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                            <div class="x_content">
+                                                @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.observaciones, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Canjear" class="btn btn-success btn-block" id="btn-canjear" />
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var errorTarjeta = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>No se ha encontrado un socio para la tarjeta indicada</strong></div></div></div>";
+        var errorValidacion = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Debe buscar un socio, y un premio a canjear.</strong></div></div></div>";
+        var errorValidacionPuntos = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Los puntos del socio no alcanzan para canjear el premio</strong></div></div></div>";
+        $(function () {
+            $("#btn-buscar-tarjeta").click(function (event) {
+                $("#resultado-socio").html("");
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                event.preventDefault();
+                var nroTarjeta = $("#txt-nro-tarjeta").val();
+                $.ajax({
+                    url: "SocioTarjeta",
+                    type: "POST",
+                    dataType: "json",
+                    data: { 'nrotarjeta': nroTarjeta }
+                })
+                   .done(function (data) {
+                       if (jQuery.isEmptyObject(data.id)) {
+                           $("#panel-error").html(errorTarjeta);
+                           $("#panel-socio-encontrado").addClass("hidden");
+                           $("#txt-socio-id").val("");
+                       }
+                       else {
+                           $("#txt-socio-id").val(data.id);
+                           $("#panel-socio-encontrado").removeClass("hidden");
+                           $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
+                           $('#lbl-documento-socio').html(data.documento);
+                           //$('#lbl-obs-socio').html(data.observaciones);
+                           $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#panel-socio').find(':input').addClass('disabled');
+                           $('#panel-socio').find(':input').attr('readonly', true);
+                       }
+                       $('#cargando').html('');
+                   })
+                   .fail(function (error) {
+                       alert("Se ha Producido un error intente mas tarde nuevamente");
+                       $('#cargando').html('');
+                   })
+
+            });
+
+            $("#txt-ape-doc-socio").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "SocioApeDoc",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Prevent value from being put in the input:
+                    // Set the next input's value to the "value" of the item.
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    $("#txt-socio-id").val(ui.item.value);
+                    event.preventDefault();
+                },
+                focus: function (event, ui) {
+                    $("#txt-ape-doc-socio").val(ui.item.label);
+                    event.preventDefault();
+                },
+                minLength: 3
+            });
+
+            $("#btn-buscar-socio").click(function (event) {
+                $("#resultado-socio").html("");
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                event.preventDefault();
+                var idSocio = $("#txt-socio-id").val();
+                $.ajax({
+                    url: "SocioId",
+                    type: "POST",
+                    dataType: "json",
+                    data: { 'idSocio': idSocio }
+                })
+                   .done(function (data) {
+                       if (jQuery.isEmptyObject(data.id)) {
+                           $("#panel-error").html(errorTarjeta);
+                           $("#panel-socio-encontrado").addClass("hidden");
+                           $("#txt-socio-id").val("");
+                       }
+                       else {
+                           $("#txt-socio-id").val(data.id);
+                           $("#panel-socio-encontrado").removeClass("hidden");
+                           $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
+                           $('#lbl-documento-socio').html(data.documento);
+                           // $('#lbl-obs-socio').html(data.observaciones);
+                           $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#panel-socio').find(':input').addClass('disabled');
+                           $('#panel-socio').find(':input').attr('readonly', true);
+                       }
+                       $('#cargando').html('');
+                   })
+                   .fail(function (error) {
+                       alert("Se ha Producido un error intente mas tarde nuevamente");
+                       $('#cargando').html('');
+                   })
+
+            });
+
+            $("#btn-validar").click(function (event) {
+                if ($("#txt-socio-id").val() == "" || $("#cbx-premio").val() == "") {
+                    $("#panel-error").html(errorValidacion);
+                }
+                else {
+                    $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                    event.preventDefault();
+                    var idSocio = $("#txt-socio-id").val();
+                    var idPermmio = $("#cbx-premio").val();
+                    $.ajax({
+                        url: "ValidarCanjePremio",
+                        type: "POST",
+                        dataType: "json",
+                        data: { 'idSocio': idSocio, 'idPremio': idPermmio }
+                    })
+                       .done(function (data) {
+                           if (jQuery.isEmptyObject(data)) {
+                               $("#panel-error").html(errorValidacion);
+                               $("#panel-canje-premio").addClass("hidden");
+                               $("#txt-puntos-canjeados").val("");
+                           }
+                           else if (data.ValidacionOk == true) {
+                               $("#txt-puntos-canjeados").val(data.PuntosPremio);
+                               $("#panel-canje-premio").removeClass("hidden");
+                               var txtPremio = $('#cbx-premio option:selected').text();
+                               var lblCanjePremio = "Se descontaran " + data.PuntosPremio + " Puntos al Socio, por el canje de:  " + txtPremio;
+                               $('#lbl-canje-premio').html(lblCanjePremio);
+                               $('#panel-premio').find(":input").addClass("disabled");
+                               $('#panel-premio').find(":input").attr("readonly", true);
+                           }
+                           else {
+                               $("#txt-puntos-canjeados").val("");
+                               $("#panel-error").html(errorValidacionPuntos);
+                               $("#panel-canje-premio").addClass("hidden");
+                               $("#txt-puntos-canjeados").val("");
+                           }
+                           $('#cargando').html('');
+                       })
+                       .fail(function (error) {
+                           $("#txt-puntos-canjeados").val("");
+                           alert("Se ha Producido un error intente mas tarde nuevamente");
+                           $('#cargando').html('');
+                       })
+                }
+            });
+
+            $("#btn-canjear").click(function (e) {
+                e.preventDefault();
+                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+                if ($("#txt-socio-id").val() == "" || $("#txt-puntos-canjeados").val() == "" || $("#cbx-premio").val() == "") {
+                    $("#panel-error").html(errorValidacion);
+                    $('#cargando').html("");
+                }
+                else {
+                    $("form").submit();
+                }
+
+            });
+        });
+    </script>
+}

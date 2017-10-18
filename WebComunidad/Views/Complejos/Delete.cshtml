@@ -1,0 +1,59 @@
+﻿@model Entidades.EF.complejo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h2>Eliminando Complejo</h2>
+
+<h3>¿Desea Eliminar el Complejo?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            Fecha Alta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_alta)
+        </dd>
+
+
+        <dt>
+            Usuario Alta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_alta)
+        </dd>
+
+        <dt>
+            Ultima Modificacion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modificacion)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger btn-block" /> 
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,100 @@
+﻿@model Entidades.EF.tipo_beneficio
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Editando Tipo de Beneficio Complejos</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">Nuevo Complejo</div>
+            <div class="x_content">
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.id)
+                        @Html.HiddenFor(model => model.fecha_alta)
+                        @Html.HiddenFor(model => model.usuario_alta)
+
+                        <div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Descripcion
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    Monto En Dinero
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">$</span>
+                                        @Html.EditorFor(model => model.monto_dinero, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.monto_dinero, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <br />
+                                    <div>Equivale a</div>
+                                </div>
+                                <div class="col-sm-5">
+                                    Puntos
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="fa fa-calculator" aria-hidden="true"></i>
+                                        </span>
+                                        @Html.EditorFor(model => model.puntos, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.puntos, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Modificar" class="btn btn-success btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+}

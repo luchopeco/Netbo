@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="471a35ae189c493680d79b23b161e585" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="Entidades.EF.AspNet_Perfiles" Width="1.5" PointX="3.75" PointY="13.75" />
+        <EntityTypeShape EntityType="Entidades.EF.AspNetRole" Width="1.5" PointX="3.75" PointY="5.25" />
+        <EntityTypeShape EntityType="Entidades.EF.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="10.625" />
+        <EntityTypeShape EntityType="Entidades.EF.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="8.125" />
+        <EntityTypeShape EntityType="Entidades.EF.AspNetUser" Width="1.5" PointX="6" PointY="8.125" />
+        <EntityTypeShape EntityType="Entidades.EF.complejo" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Entidades.EF.premio" Width="1.5" PointX="3" PointY="18.75" />
+        <EntityTypeShape EntityType="Entidades.EF.provincia" Width="1.5" PointX="5.75" PointY="2.875" />
+        <EntityTypeShape EntityType="Entidades.EF.sysdiagram" Width="1.5" PointX="7.75" PointY="2.875" />
+        <EntityTypeShape EntityType="Entidades.EF.tarjeta_socio" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="Entidades.EF.tipo_beneficio" Width="1.5" PointX="0.75" PointY="13.375" />
+        <AssociationConnector Association="Entidades.EF.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Entidades.EF.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Entidades.EF.FK_AspNetUsers_complejo" />
+        <AssociationConnector Association="Entidades.EF.FK_premio_complejo" />
+        <AssociationConnector Association="Entidades.EF.AspNet_PerfilesRoles" />
+        <AssociationConnector Association="Entidades.EF.AspNet_PerfilesUsuarios" />
+        <AssociationConnector Association="Entidades.EF.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Entidades.EF.carga_puntos" Width="1.5" PointX="3" PointY="8.625" />
+        <AssociationConnector Association="Entidades.EF.FK_carga_puntos_complejo" />
+        <AssociationConnector Association="Entidades.EF.FK_carga_puntos_tipo_beneficio" />
+        <EntityTypeShape EntityType="Entidades.EF.canje_premios_detalle" Width="1.5" PointX="8.5" PointY="14.25" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_detalle_carga_puntos" />
+        <EntityTypeShape EntityType="Entidades.EF.canje_premios" Width="1.5" PointX="6.25" PointY="13.5" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_complejo_canje" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_complejo_premio" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_detalle_canje_premios" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_premio" />
+        <EntityTypeShape EntityType="Entidades.EF.socio" Width="1.5" PointX="3" PointY="24" />
+        <AssociationConnector Association="Entidades.EF.FK_canje_premios_socio" />
+        <AssociationConnector Association="Entidades.EF.FK_carga_puntos_socio" />
+        <AssociationConnector Association="Entidades.EF.FK_socio_complejo" />
+        <AssociationConnector Association="Entidades.EF.FK_tarjeta_socio_socio" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
