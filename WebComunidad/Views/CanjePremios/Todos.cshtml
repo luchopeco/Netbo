@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="page-title">
             <div class="title_left">
-                <h3>Canjes de Premios <spam>Complejo: @ViewBag.Complejo</spam></h3>
+                <h3>Canjes de Premios. <spam>Complejo: @ViewBag.Complejo</spam></h3>
             </div>
 
             @*<div class="title_right">
@@ -90,33 +90,64 @@
                 {
                     <div class="row">
                         <div class="col-md-12">
+                            <div> Total de Canjes: <span class="text-info">@Model.ListCanjes.Count Canjes Realizados</span></div>
+                        </div>
+                        <hr />
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-hover table-condensed">
-                                    <tr>
-                                        <th>
-                                            Socio
-                                        </th>
-                                        <th>
-                                            Premio
-                                        </th>
-                                        <th>
-                                            Puntos
-                                        </th>
-                                        <th>
-                                            Fecha
-                                        </th>
-                                        <th>
-                                            Usuario
-                                        </th>
-                                        <th>
-                                            Complejo
-                                        </th>
-                                        <th>
-                                            Obs
-                                        </th>
-                                        <th></th>
-                                    </tr>
-
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Socio
+                                            </th>
+                                            <th>
+                                                Premio
+                                            </th>
+                                            <th>
+                                                Puntos
+                                            </th>
+                                            <th>
+                                                Fecha
+                                            </th>
+                                            <th>
+                                                Usuario
+                                            </th>
+                                            <th>
+                                                Complejo
+                                            </th>
+                                            <th>
+                                                Obs
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                              
+                                            </th>
+                                            <th>
+                                              
+                                            </th>
+                                            <th>
+                                              @Model.ListCanjes.Sum(c=>c.puntos_canjeados)  Puntos
+                                            </th>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                     @foreach (var item in Model.ListCanjes)
                                     {
                                         <tr>

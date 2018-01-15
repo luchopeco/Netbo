@@ -32,6 +32,11 @@ namespace WebComunidad.Controllers
         [Authorize(Roles = "UsuariosControllerFinales")]
         public async Task<ActionResult> Finales()
         {
+            if (TempData["MsjError"] != null)
+            {
+                ViewBag.MsjError = TempData["MsjError"];
+                TempData.Remove("MsjError");
+            }
             ViewBag.Finales = "1";
             return View("Index", await db.AspNetUsers.Where(u => u.AspNet_Perfiles.Count(p => p.descripcion == "Super Usuario") == 0).ToListAsync());
         }

@@ -34,30 +34,69 @@
     </div>
 }
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="x_panel">
-            <div class="x_title">Busqueda</div>
+            <div class="x_title">Busqueda por Tarjeta</div>
             <div class="x_content">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <input class="hidden" name="id" id="txt-socio-id" />
+                    <input class="hidden" name="id" value="" />
                     <div class="row">
-                        <div class="col-md-4">
-                            Socio (Apellido - Documento)
+                        <div class="col-md-12">
+                            Socio (Nro Tarjeta)
                             <div class="input-prepend input-group">
-                                <span class="add-on input-group-addon"><i class="fa fa-user"></i></span>
-                                <input class="form-control" tabindex="-1" id="txt-ape-doc-socio" type="text" placeholder="Apellido o Numero Documento">
+                                <span class="add-on input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                <input class="form-control" tabindex="-1"  type="text" placeholder="Numero Tarjeta" name="tarjeta">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             Fecha Desde
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                 <input name="fechaDesde" placeholder="Fecha Desde" class="form-control datepicker" required />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            Fecha Hasta
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaHasta" placeholder="Fecha Hasta" class="form-control datepicker" required />
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-success" title="Buscar" value="Buscar" id="btn-Buscar">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="x_panel">
+            <div class="x_title">Busqueda DNI - Apellido</div>
+            <div class="x_content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="hidden" name="id" id="txt-socio-id" />
+                    <input class="hidden" name="tarjeta" value="" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            Socio (Apellido - Documento)
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-user"></i></span>
+                                <input class="form-control" tabindex="-1" id="txt-ape-doc-socio" type="text" placeholder="Apellido o Numero Documento">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Fecha Desde
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaDesde" placeholder="Fecha Desde" class="form-control datepicker" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             Fecha Hasta
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>

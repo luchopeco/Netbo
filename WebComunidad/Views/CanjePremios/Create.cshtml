@@ -179,43 +179,54 @@
         var errorTarjeta = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>No se ha encontrado un socio para la tarjeta indicada</strong></div></div></div>";
         var errorValidacion = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Debe buscar un socio, y un premio a canjear.</strong></div></div></div>";
         var errorValidacionPuntos = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Los puntos del socio no alcanzan para canjear el premio</strong></div></div></div>";
+        function buscarPorTarjeta(event)
+        {
+            $("#resultado-socio").html("");
+            $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+            event.preventDefault();
+            var nroTarjeta = $("#txt-nro-tarjeta").val();
+            $.ajax({
+                url: "SocioTarjeta",
+                type: "POST",
+                dataType: "json",
+                data: { 'nrotarjeta': nroTarjeta }
+            })
+               .done(function (data) {
+                   if (jQuery.isEmptyObject(data.id)) {
+                       $("#panel-error").html(errorTarjeta);
+                       $("#panel-socio-encontrado").addClass("hidden");
+                       $("#txt-socio-id").val("");
+                   }
+                   else {
+                       $("#txt-socio-id").val(data.id);
+                       $("#panel-socio-encontrado").removeClass("hidden");
+                       $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
+                       $('#lbl-documento-socio').html(data.documento);
+                       //$('#lbl-obs-socio').html(data.observaciones);
+                       $('#lbl-puntos-socio').html(data.puntos_actuales);
+                       $('#panel-socio').find(':input').addClass('disabled');
+                       $('#panel-socio').find(':input').attr('readonly', true);
+                   }
+                   $('#cargando').html('');
+               })
+               .fail(function (error) {
+                   alert("Se ha Producido un error intente mas tarde nuevamente");
+                   $('#cargando').html('');
+               })
+        }
         $(function () {
+
             $("#btn-buscar-tarjeta").click(function (event) {
-                $("#resultado-socio").html("");
-                $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
-                event.preventDefault();
-                var nroTarjeta = $("#txt-nro-tarjeta").val();
-                $.ajax({
-                    url: "SocioTarjeta",
-                    type: "POST",
-                    dataType: "json",
-                    data: { 'nrotarjeta': nroTarjeta }
-                })
-                   .done(function (data) {
-                       if (jQuery.isEmptyObject(data.id)) {
-                           $("#panel-error").html(errorTarjeta);
-                           $("#panel-socio-encontrado").addClass("hidden");
-                           $("#txt-socio-id").val("");
-                       }
-                       else {
-                           $("#txt-socio-id").val(data.id);
-                           $("#panel-socio-encontrado").removeClass("hidden");
-                           $('#lbl-nombre-socio').html(data.apellido + ", " + data.nombre);
-                           $('#lbl-documento-socio').html(data.documento);
-                           //$('#lbl-obs-socio').html(data.observaciones);
-                           $('#lbl-puntos-socio').html(data.puntos_actuales);
-                           $('#panel-socio').find(':input').addClass('disabled');
-                           $('#panel-socio').find(':input').attr('readonly', true);
-                       }
-                       $('#cargando').html('');
-                   })
-                   .fail(function (error) {
-                       alert("Se ha Producido un error intente mas tarde nuevamente");
-                       $('#cargando').html('');
-                   })
-
+                buscarPorTarjeta(event);
             });
+            $("#txt-nro-tarjeta").keypress(function (e) {
 
+                if (e.which == 13) {
+                    e.preventDefault();
+                    buscarPorTarjeta(e);
+                }
+            });
+     
             $("#txt-ape-doc-socio").autocomplete({
                 source: function (request, response) {
                     $.ajax({

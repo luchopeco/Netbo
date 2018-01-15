@@ -304,18 +304,122 @@ namespace WebComunidad.Controllers
 
         [Authorize(Roles = "SociosControllerPuntosCargados")]
         [HttpPost]
-        public async Task<ActionResult> PuntosCargados(int? id, DateTime fechaDesde, DateTime fechaHasta)
+        public async Task<ActionResult> PuntosCargados(int? id, string tarjeta, DateTime fechaDesde, DateTime fechaHasta)
         {
-
             DateTime fd = Helper.Helper.FechaHoraDesde(fechaDesde);
             DateTime fh = Helper.Helper.FechaHoraHasta(fechaHasta);
-            socio soc = db.socios.Find(id);
-            ViewBag.Puntos = (int)soc.puntos_actuales;
-            ViewBag.SubTitulo = "Socio: " + soc.apellido + ", " + soc.nombre + " del " + fd.ToShortDateString() + " al " + fh.ToShortDateString();
-            var puntos = await (from p in db.carga_puntos
-                                where p.socio_id == id && p.fecha_alta >= fd && p.fecha_alta <= fh
-                                select p).ToListAsync();
-            return View(puntos);
+            if (id != null && id != 0)
+            {
+                socio soc = db.socios.Find(id);
+                ViewBag.Puntos = (int)soc.puntos_actuales;
+                ViewBag.SubTitulo = "Socio: " + soc.apellido + ", " + soc.nombre + " del " + fd.ToShortDateString() + " al " + fh.ToShortDateString();
+                var puntos = await (from p in db.carga_puntos
+                                    where p.socio_id == id && p.fecha_alta >= fd && p.fecha_alta <= fh
+                                    select p).ToListAsync();
+                return View(puntos);
+            }
+            else
+            {
+                var soc = (from ts in db.tarjeta_socio
+                           join s in db.socios on ts.socio_id equals s.id
+                           where ts.numero_tarjeta == tarjeta && ts.fecha_baja == null && s.fecha_baja == null
+                           select s).FirstOrDefault();
+
+                ViewBag.Puntos = (int)soc.puntos_actuales;
+                ViewBag.SubTitulo = "Socio: " + soc.apellido + ", " + soc.nombre + " del " + fd.ToShortDateString() + " al " + fh.ToShortDateString();
+                var puntos = await (from p in db.carga_puntos
+                                    where p.socio_id == soc.id && p.fecha_alta >= fd && p.fecha_alta <= fh
+                                    select p).ToListAsync();
+                return View(puntos);
+            }
+
+        }
+
+        [Authorize(Roles = "SociosControllerCambioTarjeta")]
+        [HttpGet]
+        public ActionResult CambioTarjeta(int idSocio)
+        {
+            if (TempData["MsjExito"] != null)
+            {
+                ViewBag.MsjExito = TempData["MsjExito"];
+                TempData.Remove("MsjExito");
+            }
+            if (TempData["MsjError"] != null)
+            {
+                ViewBag.MsjError = TempData["MsjError"];
+                TempData.Remove("MsjError");
+            }
+            var socio = db.socios.Find(idSocio);
+            Models.Socios.CambioTarjetaModels m = new Models.Socios.CambioTarjetaModels();
+            m.Socio = socio;
+
+
+            return View(m);
+        }
+
+        [Authorize(Roles = "SociosControllerCambioTarjeta")]
+        [HttpPost]
+        public ActionResult BuscarTarjeta(string nroTarjeta)
+        {
+            var tarjeta = (from t in db.tarjeta_socio
+                           where t.activada == true && t.socio_id == null && t.numero_tarjeta == nroTarjeta && t.fecha_baja==null
+                           select t).FirstOrDefault();
+            if (tarjeta != null)
+            {
+                return Json(tarjeta);
+            }
+            else
+            {
+                return Json("{}");
+            }
+
+
+
+
+        }
+
+        [Authorize(Roles = "SociosControllerCambioTarjeta")]
+        [HttpPost]
+        public ActionResult ModificarTarjeta(Models.Socios.CambioTarjetaModels m)
+        {            
+            using (var dbTransaction = db.Database.BeginTransaction())
+            {         
+                try
+                {
+                    var t = db.tarjeta_socio.Find(m.TarjetaNueva.id);
+                    if (t.socio_id != null || t.fecha_baja != null)
+                    {
+                        TempData["MsjError"] = "La Tarjeta se encuentra Utilizada";
+                        return RedirectToAction("CambioTarjeta", new { idSocio = m.Socio.id });
+                    }
+                    tarjeta_socio tVieja = db.socios.Find(m.Socio.id).TarjetaActual;
+                    if (tVieja != null && tVieja.id != 0)
+                    {
+                        tVieja.activada = false;
+                        tVieja.fecha_baja = DateTime.Now;
+                        db.Entry(tVieja).State = EntityState.Modified;
+                    }
+                    t.activada = true;
+                    t.socio_id = m.Socio.id;
+                    db.Entry(t).State = EntityState.Modified;
+
+                    db.SaveChanges();
+                    dbTransaction.Commit();
+                    TempData["MsjExito"] = "Tarjeta Cambiada Con Exito";
+                    return RedirectToAction("CambioTarjeta", new { idSocio = m.Socio.id });
+
+                }
+                catch (Exception ex)
+                {
+
+                    dbTransaction.Rollback();
+                    TempData["MsjError"] = ex.Message;
+                    return RedirectToAction("CambioTarjeta", new { idSocio = m.Socio.id });
+                }
+
+
+            }
+
         }
 
         protected override void Dispose(bool disposing)

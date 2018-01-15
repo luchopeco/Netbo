@@ -188,14 +188,16 @@ namespace WebComunidad.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
-
-                    return RedirectToAction("Index", "Usuarios");
+                    //return Redirect(Request.UrlReferrer.ToString());
+                    return RedirectToAction("Finales", "Usuarios");
                 }
                 AddErrors(result);
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+            TempData["MsjError"] = "Verifique los datos del usuario. Por ejemplo. Que no exista el mismo Nombre de Usuario";
+            return RedirectToAction("Finales", "Usuarios");
+            //return View(model);
         }
 
         //

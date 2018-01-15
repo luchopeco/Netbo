@@ -73,36 +73,72 @@
                 {
                     <div class="row">
                         <div class="col-md-12">
+                            <div> Total de Cargas: <span class="text-info">@Model.ListCargaPuntos.Count Carga de puntos realizadas.</span></div>
+                        </div>
+                        <hr />
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-hover table-condensed">
-                                    <tr>
-                                        <th>
-                                            Socio
-                                        </th>
-                                        <th>
-                                            Tipo Beneficio
-                                        </th>
-                                        <th>
-                                            Puntos
-                                        </th>
-                                        <th>
-                                            Monto
-                                        </th>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Socio
+                                            </th>
+                                            <th>
+                                                Tipo Beneficio
+                                            </th>
+                                            <th>
+                                                Puntos
+                                            </th>
+                                            <th>
+                                                Monto
+                                            </th>
 
-                                        <th>
-                                            Complejo
-                                        </th>
-                                        <th>
-                                            Obs
-                                        </th>
-                                        <th>
-                                            Fecha Alta
-                                        </th>
-                                        <th>
-                                            Usuario
-                                        </th>
-                                        <th></th>
-                                    </tr>
+                                            <th>
+                                                Complejo
+                                            </th>
+                                            <th>
+                                                Obs
+                                            </th>
+                                            <th>
+                                                Fecha Alta
+                                            </th>
+                                            <th>
+                                                Usuario
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                @Model.ListCargaPuntos.Sum(p => p.puntos_cargados)  Puntos
+                                            </th>
+                                            <th>
+                                                $@Model.ListCargaPuntos.Sum(p => p.monto_cargado)
+                                            </th>
+
+                                            <th>
+
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                     @foreach (var item in Model.ListCargaPuntos)
                                     {
                                         <tr>
@@ -116,7 +152,7 @@
                                                 <strong>  @Html.DisplayFor(modelItem => item.puntos_cargados) Puntos</strong>
                                             </td>
                                             <td>
-                                                $ @Html.DisplayFor(modelItem => item.monto_cargado)
+                                                $@Html.DisplayFor(modelItem => item.monto_cargado)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.complejo.descripcion)

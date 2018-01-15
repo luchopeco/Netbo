@@ -1,0 +1,267 @@
+﻿@model WebComunidad.Models.Socios.CambioTarjetaModels
+@{
+    ViewBag.Title = "CambioTarjeta";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div id="cargando" style="position: fixed; top: 2%; left: 50%; z-index: 1051;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Cambio de Tarjeta</h3>
+            </div>
+
+            @*<div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search for..." type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjExito != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjExito</strong>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.MsjError != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjError</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="x_panel">
+            <div class="x_title">Socio</div>
+            <div class="x_content">
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Nombre
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.nombre)
+                        </dd>
+
+                        <dt>
+                            Apellido
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.apellido)
+                        </dd>
+
+                        <dt>
+                            Documento
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.documento)
+                        </dd>
+
+                        <dt>
+                            Celular
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.celular)
+                        </dd>
+
+                        <dt>
+                            Mail
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.mail)
+                        </dd>
+
+                        <dt>
+                            Direccion
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.direccion)
+                        </dd>
+
+                        <dt>
+                            Localidad
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.localidad)
+                        </dd>
+
+                        <dt>
+                            Provincia
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.provincia)
+                        </dd>
+
+                        <dt>
+                            Fecha Alta
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Socio.fecha_alta)
+                        </dd>
+                        <dt>
+                            Tarjeta Actual
+                        </dt>
+                        <dd>
+                            @if (Model.Socio.tarjeta_socio.Count(t => t.activada == true) > 0)
+                            {
+                                @Model.Socio.TarjetaActual.numero_tarjeta
+                            }
+                            else
+                            {
+                                <spam>-----</spam>
+                            }
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Nueva Tarjeta</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    Tarjeta
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <input class="form-control " id="txt-nro-tarjeta" type="text" placeholder="Nro Tarjeta">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-success" id="btn-buscar-tarjeta"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="panel-error"></div>
+            <div class="row hidden" id="panel-tarjeta-encontrada">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("ModificarTarjeta", "Socios", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Socio.id, new { @id = "txt-socio-id", @required = "required" })
+                        @Html.HiddenFor(model => model.TarjetaNueva.id, new { @id = "txt-tarjeta-id", @required = "required" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Tarjeta:
+                                    </dt>
+                                    <dd>
+                                        <span id="lbl-tarjeta"></span>
+                                    </dd>
+                                    <dt>
+                                        Obs:
+                                    </dt>
+                                    <dd>
+                                        <span id="lbl-obs"></span>
+                                    </dd>
+                                </dl>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Modificar Tarjeta" class="btn btn-success btn-block" id="btn-modificar" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var errorTarjeta = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>La tarjeta no se ha encontrado, o bien ya esta utilizada.</strong></div></div></div>";
+        var errorValidacion = "<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><strong>Debe buscar un socio, seleccionar un tipo de beneficio y agregar un monto a cargar.</strong></div></div></div>";
+        function buscarPorTarjeta(event) {
+            $('#cargando').html('<button class="btn btn-default btn-lg"><i class="fa fa-spinner fa-spin"></i>Cargando....</button>');
+            event.preventDefault();
+            var nroTarjeta = $("#txt-nro-tarjeta").val();
+            $.ajax({
+                url: "BuscarTarjeta",
+                type: "POST",
+                dataType: "json",
+                data: { 'nrotarjeta': nroTarjeta }
+            })
+               .done(function (data) {
+                   if (jQuery.isEmptyObject(data.id)) {
+                       $("#panel-error").html(errorTarjeta);
+                       $("#txt-tarjeta-id").val("");
+                       $("#panel-tarjeta-encontrada").addClass("hidden");
+                   }
+                   else {
+                       $("#panel-error").html("");
+                       $("#txt-tarjeta-id").val(data.id);
+                       $("#panel-tarjeta-encontrada").removeClass("hidden");
+
+                       $('#lbl-tarjeta').html(data.numero_tarjeta);
+                       $('#lbl-obs').html(data.observaciones);
+                   }
+                   $('#cargando').html('');
+               })
+               .fail(function (error) {
+                   alert("Se ha Producido un error intente mas tarde nuevamente");
+                   $('#cargando').html('');
+               })
+
+
+        }
+        $(function () {
+
+            $("#btn-buscar-tarjeta").click(function (event) {
+                buscarPorTarjeta(event);
+            });
+
+            $("#txt-nro-tarjeta").keypress(function (e) {
+
+                if (e.which == 13) {
+                    e.preventDefault();
+                    buscarPorTarjeta(e);
+                }
+            });
+
+        });
+    </script>
+}
+
+
+
+
