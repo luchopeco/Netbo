@@ -1,0 +1,156 @@
+﻿@model WebSociosComunidad.Models.Canjes.index
+
+@{
+    ViewBag.Title = "Canjes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <h1 class="page-header">
+        Canjes Realizados
+    </h1>
+}
+<div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-action">
+                Canjes
+            </div>
+            <div class="card-image">
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="fa fa-shopping-cart circle orange"></i>
+                        <span class="title">@Model.TotalCanjes</span>
+                        <p>
+                            Canjes Realizados <br>
+                            Al dia de Hoy
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-action">
+                Consulta Histórica
+            </div>
+            <div class="card-content">
+                @using (Html.BeginForm("PorFecha", "Canjes"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            Fecha Desde
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                @Html.EditorFor(model => model.FechaDesde, new { htmlAttributes = new { @class = "form-control datepicker", @required = "required", @type = "date" } })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            Fecha Hasta
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                @Html.EditorFor(model => model.FechaHasta, new { htmlAttributes = new { @class = "form-control datepicker", @required = "required", @type = "date" } })
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-success" title="Buscar" value="Buscar" id="btn-Buscar">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.MsjError != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjError</strong>
+        </div>
+    </div>
+</div>
+}
+@if (Model.ListcanjesBusqueda != null && Model.ListcanjesBusqueda.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-action">
+                    Consulta Histórica desde @Model.FechaDesde.Value.ToShortDateString() hasta @Model.FechaHasta.Value.ToShortDateString()
+                </div>
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>@Model.ListcanjesBusqueda.Count Canjes Realizados</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in Model.ListcanjesBusqueda)
+                                {
+                                    <tr>
+                                        <td>El @c.FechaCanje.ToShortDateString() en @c.ComplejoDesc, se canjeo <strong>@c.Premio </strong> por @c.PuntosCanjeados puntos.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.ListCanjesUltimoMes != null && Model.ListCanjesUltimoMes.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-action">
+                    Carga de puntos en los ultimos 30 días
+                </div>
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>@Model.ListCanjesUltimoMes.Count Canjes realizados</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in Model.ListCanjesUltimoMes)
+                                {
+                                    <tr>
+                                        <td>El @c.FechaCanje.ToShortDateString() en @c.ComplejoDesc, se canjeo <strong>@c.Premio </strong> por @c.PuntosCanjeados puntos.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-action">
+                    No se han realizado Canjes de Premios en los ultimos 30 días
+                </div>
+                <div class="card-content"></div>
+            </div>
+        </div>
+    </div>
+
+}

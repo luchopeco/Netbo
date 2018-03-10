@@ -90,7 +90,7 @@
 
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
+                                    <tr title="@item.observaciones">
                                         <td>
                                             @Html.DisplayFor(modelItem => item.apellido),  @Html.DisplayFor(modelItem => item.nombre)
                                         </td>

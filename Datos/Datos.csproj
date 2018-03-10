@@ -102,6 +102,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelComunidad.Context.cs</LastGenOutput>
       <DependentUpon>ModelComunidad.edmx</DependentUpon>
+      <CustomToolNamespace>Entidades.EF</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

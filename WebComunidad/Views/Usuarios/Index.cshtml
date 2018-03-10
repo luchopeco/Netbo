@@ -90,20 +90,24 @@
                                                     <a href="@Url.Action("Edit", new { id = item.Id })" title="Usuarios Linea" class="btn btn-xs btn-info">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
+                                                    @if (ViewBag.Finales != null && ViewBag.Finales == "2")
+                                                    {
+                                                        <a href="@Url.Action("PerfilesEncargado", new { id = item.Id })" title="Perfiles del Usuarios" class="btn btn-xs btn-primary">
+                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </a>
+                                                    }
                                                     @if (ViewBag.Finales != null && ViewBag.Finales == "1")
                                                     {
                                                         <a href="@Url.Action("PerfilesFinales", new { id = item.Id })" title="Perfiles del Usuarios" class="btn btn-xs btn-primary">
                                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                                         </a>
                                                     }
-                                                    else
+                                                  
+                                                    @if (ViewBag.Finales == null)
                                                     {
                                                         <a href="@Url.Action("Perfiles", new { id = item.Id })" title="Perfiles del Usuarios" class="btn btn-xs btn-primary">
                                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                                         </a>
-                                                    }
-                                                    @if (ViewBag.Finales == null || ViewBag.Finales != "1")
-                                                    {
                                                         <a href="#" class="btn btn-primary btn-xs" title="Roles (ControllerAction Permitidas) Asociados" data-toggle="modal" data-target="#perfil-@Html.DisplayFor(modelItem => item.Id)">
                                                             <i class="fa fa-users" aria-hidden="true"></i>
                                                         </a>

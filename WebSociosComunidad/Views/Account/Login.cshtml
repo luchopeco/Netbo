@@ -1,0 +1,107 @@
+﻿@using WebSociosComunidad.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Socios Netbol";
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title ::Socios::Netbol</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    @Styles.Render("~/Target/css")
+    <link rel="shortcut icon" href="~/Img/favicon.ico">
+</head>
+<body>
+    <div class="row" style="padding:10px; margin-top:30px">
+        <div class="col-md-12">
+            <img src="~/Img/logo.png" class="img-responsive center-block" />
+        </div>
+    </div>
+
+    <div class="col-xs-8 col-xs-offset-2 text-center" style="background-color:#E0E8F5;">
+        <div style="margin-bottom:30px; padding-top:10px"> 
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                            @Html.AntiForgeryToken()
+                            <h4>Iniciar Sesion</h4>
+                            if (ViewBag.MsjExito != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>@ViewBag.MsjExito</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Usuario
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    Clave
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required="required" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-offset-1 col-xs-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Iniciar sesión" class="btn btn-success btn-block" />
+                                </div>
+                            </div>
+                            <p>
+                                @Html.ActionLink("¿Sos nuevo? ¡¡Registrate ahora!!", "Register")
+                            </p>
+                            <p>
+                                @Html.ActionLink("¿Olvidaste tu clave? ¡¡Generá un nuevo usuario ahora!!", "Register")
+                            </p>
+                            @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña
+                                <p>
+                                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                                </p>*@
+                        }
+                    </section>
+                </div>
+            </div>
+            <footer>
+                <p>Desarrollo  <a href="http://www.wiphalasistemas.com.ar" target="_blank"> Wiphala Sistemas</a></p>
+            </footer>
+        </div>
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Target/script")
+
+</body>
+
+</html>

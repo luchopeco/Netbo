@@ -183,6 +183,7 @@
           <Property Name="puntos_actuales" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="fecha_nacimiento" Type="date" />
           <Property Name="complejo_alta_id" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1208,6 +1209,7 @@
           <Property Name="puntos_actuales" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
           <Property Name="complejo_alta_id" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="canje_premios" Relationship="Entidades.EF.FK_canje_premios_socio" FromRole="socio" ToRole="canje_premios" />
           <NavigationProperty Name="carga_puntos" Relationship="Entidades.EF.FK_carga_puntos_socio" FromRole="socio" ToRole="carga_puntos" />
           <NavigationProperty Name="complejo" Relationship="Entidades.EF.FK_socio_complejo" FromRole="socio" ToRole="complejo" />
@@ -1482,6 +1484,7 @@
           <EntitySetMapping Name="socios">
             <EntityTypeMapping TypeName="Entidades.EF.socio">
               <MappingFragment StoreEntitySet="socio">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="complejo_alta_id" ColumnName="complejo_alta_id" />
                 <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
                 <ScalarProperty Name="puntos_actuales" ColumnName="puntos_actuales" />

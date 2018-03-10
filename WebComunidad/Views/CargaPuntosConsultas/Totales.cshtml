@@ -84,7 +84,12 @@
                                 <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
                                     <span class="count_top">Total Dinero</span>
                                     <div class="count">$ @Model.MontoEnPesosTotal</div>
-                                    <span class="count_bottom">Monto Canajeado por puntos</span>
+                                    <span class="count_bottom"><i class="green">Monto Canajeado por puntos</i></span>
+                                </div>   
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top">Cantidad Cargas</span>
+                                    <div class="count">@Model.CantidadCargasRealizadas</div>
+                                    <span class="count_bottom"><i class="green">En todas los Complejos</i></span>
                                 </div>                                
                             </div>
                         </div>
@@ -93,7 +98,51 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        @foreach (var cc in Model.ListComplejos.OrderByDescending(ccc=>ccc.TotalPuntosCargados))
+        {
 
+            <div class="col-md-6">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>@cc.Complejo<small>desde  @Model.FechaDesde.ToShortDateString() hasta  @Model.FechaHasta.ToShortDateString()</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-info">
+                                    Puntos Cargados en el complejo @cc.Complejo, y el monto de dinero canjeado por esos puntos.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row tile_count">
+                                    <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+                                        <span class="count_top"><i class="fa fa-star" aria-hidden="true"></i> Total Puntos</span>
+                                        <div class="count"><small>@cc.TotalPuntosCargados</small></div>
+                                        <span class="count_bottom"><i class="green">El @cc.PorcentajePuntosCargados.ToString("0.00") del Total</i></span>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+                                        <span class="count_top">Total Dinero</span>
+                                        <div class="count"><small>$@cc.MontoEnPesosTotal.ToString("0")</small></div>
+                                        <span class="count_bottom"><i class="green">El @cc.PorcentajeMontoEnPesosCargado.ToString("0.00") del Total</i></span>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+                                        <span class="count_top">Total Cargas</span>
+                                        <div class="count"><small>@cc.CantidadCargasRealizadas</small></div>
+                                        <span class="count_bottom"><i class="green">El @cc.PorcentajeCantidadCargasRealizadas.ToString("0.00") del Total</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
 }
 
 @section Script {

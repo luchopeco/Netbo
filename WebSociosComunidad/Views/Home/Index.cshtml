@@ -1,0 +1,96 @@
+﻿@model WebSociosComunidad.Models.HomeModels
+@{
+    ViewBag.Title = "";
+}
+@section header{
+    <h1 class="page-header">
+        Binevenidos a Netbol - <small>Socios</small>
+    </h1>
+}
+@if (ViewBag.MsjExito != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>@ViewBag.MsjExito</strong>
+            </div>
+        </div>
+    </div>
+}
+<div class="dashboard-cards">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image red">
+                    <i class="fa fa-star dp48"></i>
+                </div>
+                <div class="card-stacked red">
+                    <div class="card-content">
+                        <h3>@Model.PuntosDisponibles</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong>Puntos</strong>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image blue">
+                    <i class="fa fa-star dp48"></i>
+                </div>
+                <div class="card-stacked blue">
+                    <div class="card-content">
+                        <h4>@Model.UltimaCargaDePuntos</h4>
+                    </div>
+                    <div class="card-action">
+                        <small>Ultima Carga</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image orange">
+                    <i class="fa fa-shopping-cart dp48"></i>
+                </div>
+                <div class="card-stacked orange">
+                    <div class="card-content">
+                        <h3>@Model.CantidadPremiosCanjeados</h3>
+                    </div>
+                    <div class="card-action">
+                        <strong>Canjes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+
+            <div class="card horizontal cardIcon waves-effect waves-dark">
+                <div class="card-image green">
+                    <i class="fa fa-shopping-cart dp48"></i>
+                </div>
+                <div class="card-stacked green">
+                    <div class="card-content">
+                        <h4>@Model.UltimoPremioCanjeado</h4>
+                    </div>
+                    <div class="card-action">
+                        <small>Ultimo Canje</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

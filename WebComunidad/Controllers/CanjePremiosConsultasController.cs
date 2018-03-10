@@ -71,6 +71,11 @@ namespace WebComunidad.Controllers
 
             ViewBag.SubTitulo = "Desde el " + fd.ToShortDateString() + " hasta el " + fh.ToShortDateString();
 
+            int cantidad = db.carga_puntos.Count(c => c.fecha_alta >= fd && c.fecha_alta <= fh);
+            if (cantidad>0)
+            {
+
+            
             var tot = from c in db.canje_premios
                       where c.fecha_alta >= fd && c.fecha_alta <= fh
                       group c by c.complejo_canje_id into grupoCanje                      
@@ -131,6 +136,7 @@ namespace WebComunidad.Controllers
 
                 }
 
+            }
             }
             return View(totales);
         }

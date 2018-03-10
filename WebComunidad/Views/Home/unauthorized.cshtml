@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>.:NetBol-WiphalaSistemas:.</title>
+    @Styles.Render("~/Content/themecss")
+    @Styles.Render("~/Content/datatable")
+    <link rel="shortcut icon" href="~/Content/img/favicon.ico">
+</head>
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="form login_form">
+                <section class="login_content">
+
+                    <p class="text-danger">No Esta Autorizado para Realizar Esta Acción</p>
+                    <h1>
+                        <a href="@Url.Content("~/Home/Index")" class="">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Volver al Home</span>
+                        </a>
+                    </h1>
+                    <div class="clearfix"></div>
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br />
+                        <div>
+                            <h1>Net Bol Comunidad de Futbol</h1>
+                            <p>©2017 <a href="http://www.wiphalasistemas.com.ar" target="_blank">www.wiphalasistemas.com.ar</a></p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

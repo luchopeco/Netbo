@@ -1,0 +1,155 @@
+﻿@model  WebComunidad.Models.SociosConsulta.TotalesModels
+@{
+    ViewBag.Title = "Totales";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Total de Socios Cargados</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-12 form-group pull-right top_search">
+                    <small class="text-danger">
+                        Desde Aqui puede consultar los totales de Socios cargados, y el detalle por Complejo
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Estadisticas </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-4">
+                            Fecha Desde
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaDesde" placeholder="Fecha Desde" class="form-control datepicker" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            Fecha Hasta
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                <input name="fechaHasta" placeholder="Fecha Hasta" class="form-control datepicker" required />
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-success" title="Buscar" value="Buscar" id="btn-Buscar">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Total Socios Cargados<small>desde el @Model.FechaDesde.ToShortDateString() hasta el @Model.FechaHasta.ToShortDateString()</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-info">
+                                Socios Cargados en todos los complejos.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row tile_count">
+                                <div class="col-md-6 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-star" aria-hidden="true"></i> Total Socios</span>
+                                    <div class="count">@Model.CantidadSocios</div>
+                                    <span class="count_bottom"><i class="green">En todas los Complejos</i></span>
+                                </div>                                                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var cc in Model.ListComplejos.OrderByDescending(ccc=>ccc.CantidadSocios))
+        {
+
+            <div class="col-md-6">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>@cc.Complejo<small>desde  @Model.FechaDesde.ToShortDateString() hasta  @Model.FechaHasta.ToShortDateString()</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-info">
+                                    Socios Cargados en el complejo @cc.Complejo
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row tile_count">
+                                    <div class="col-md-4 col-sm-6 col-xs-6 tile_stats_count">
+                                        <span class="count_top"><i class="fa fa-star" aria-hidden="true"></i>Socios Cargados</span>
+                                        <div class="count"><small>@cc.CantidadSocios</small></div>
+                                        <span class="count_bottom"><i class="green">El @cc.PorcentajeCantidadSocios.ToString("0.00") del Total</i></span>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+}
+
+@section Script {
+    <script>
+        $(function () {
+            $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '<Ant',
+                nextText: 'Sig>',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $(".datepicker").datepicker();
+        });
+    </script>
+
+}
+

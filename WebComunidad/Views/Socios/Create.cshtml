@@ -95,10 +95,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    Celular
+                                    Celular <small class="text-danger">(Sin el 0 sin el 15(ejmplo: 3416860766))</small>
                                     <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon"><i class="fa fa-mobile"></i></span>
-                                        @Html.EditorFor(model => model.celular, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => model.celular, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required", @placeholder = "Sin 0, sin 15" } })
                                         @Html.ValidationMessageFor(model => model.celular, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

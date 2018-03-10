@@ -189,7 +189,7 @@ namespace WebComunidad.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
                     //return Redirect(Request.UrlReferrer.ToString());
-                    return RedirectToAction("Finales", "Usuarios");
+                    return RedirectToAction("Encargado", "Usuarios");
                 }
                 AddErrors(result);
             }

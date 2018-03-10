@@ -33,12 +33,12 @@
         <AssociationConnector Association="Entidades.EF.FK_canje_premios_complejo_premio" />
         <AssociationConnector Association="Entidades.EF.FK_canje_premios_detalle_canje_premios" />
         <AssociationConnector Association="Entidades.EF.FK_canje_premios_premio" />
-        <EntityTypeShape EntityType="Entidades.EF.socio" Width="1.5" PointX="3" PointY="24" />
+        <EntityTypeShape EntityType="Entidades.EF.socio" Width="1.5" PointX="3" PointY="23.875" />
         <AssociationConnector Association="Entidades.EF.FK_canje_premios_socio" />
         <AssociationConnector Association="Entidades.EF.FK_carga_puntos_socio" />
         <AssociationConnector Association="Entidades.EF.FK_socio_complejo" />
         <AssociationConnector Association="Entidades.EF.FK_tarjeta_socio_socio" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

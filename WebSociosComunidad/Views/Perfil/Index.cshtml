@@ -1,0 +1,81 @@
+﻿@model Entidades.EF.socio
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <h1 class="page-header">
+       Perfil <small> @Model.apellido ,  @Model.nombre</small>
+    </h1>
+}
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+        <div class="card">
+            <div class="card-action">
+                <b>Tu Perfil de Socio</b>
+            </div>
+            <div class="card-image">
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="fa fa-user circle green"></i>
+                        <span class="title">@Model.apellido ,  @Model.nombre</span>
+                        <p>
+                            Nombre
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-edit circle orange"></i>
+                        <span class="title">@Model.documento</span>
+                        <p>
+                            Documento
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-mobile-phone circle blue"></i>
+                        <span class="title">@Model.celular</span>
+                        <p>
+                            Celular
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-map-marker circle red"></i>
+                        <span class="title">@Model.direccion - @Model.localidad - @Model.provincia</span>
+                        <p>
+                            Direccion
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-inbox circle green"></i>
+                        <span class="title">@Model.mail</span>
+                        <p>
+                            Mail
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-calendar circle orange"></i>
+                        <span class="title">@Model.fecha_nacimiento</span>
+                        <p>
+                            Fecha Nacimiento
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-map-marker circle red"></i>
+                        <span class="title">@ViewBag.Complejo</span>
+                        <p>
+                            Complejo <br>
+                            Alta
+                        </p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

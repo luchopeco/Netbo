@@ -40,6 +40,22 @@ namespace WebComunidad.Controllers
             ViewBag.Finales = "1";
             return View("Index", await db.AspNetUsers.Where(u => u.AspNet_Perfiles.Count(p => p.descripcion == "Super Usuario") == 0).ToListAsync());
         }
+
+        /// <summary>
+        /// Muestra usuarios que no tienen el perfil supersu
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "UsuariosControllerEncargado")]
+        public async Task<ActionResult> Encargado()
+        {
+            if (TempData["MsjError"] != null)
+            {
+                ViewBag.MsjError = TempData["MsjError"];
+                TempData.Remove("MsjError");
+            }
+            ViewBag.Finales = "2";
+            return View("Index", await db.AspNetUsers.Where(u => u.AspNet_Perfiles.Count(p => p.descripcion == "Super Usuario") == 0 &&  u.AspNet_Perfiles.Count(p => p.descripcion == "Administrador") == 0).ToListAsync());
+        }
         // GET: AspNetUsers/Details/5
         [Authorize(Roles = "UsuariosControllerDetails")]
         public async Task<ActionResult> Details(string id)
@@ -115,7 +131,7 @@ namespace WebComunidad.Controllers
                 usu.complejo_id = aspNetUser.complejo_id;
                 db.Entry(usu).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Encargado");
             }
             return View(aspNetUser);
         }
@@ -145,7 +161,7 @@ namespace WebComunidad.Controllers
             AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
             db.AspNetUsers.Remove(aspNetUser);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Encargado");
         }
 
 
@@ -222,6 +238,44 @@ namespace WebComunidad.Controllers
             return View("Perfiles",perfiles);
         }
 
+        /// <summary>
+        /// Muestra los perfiles para un usuario que no sean supersu
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "UsuariosControllerPerfilesEncargado")]
+        public async Task<ActionResult> PerfilesEncargado(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = await db.AspNetUsers.FindAsync(id);
+            var perfiles = await db.AspNet_Perfiles.Where(p => p.descripcion != "Super Usuario" && p.descripcion != "Administrador").ToListAsync();
+            foreach (var cont in perfiles)
+            {
+                if (aspNetUser.AspNet_Perfiles.ToList().Exists(rr => rr.id == cont.id))
+                {
+                    cont.Activo = true;
+                }
+            }
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (TempData["MsjExito"] != null)
+            {
+                ViewBag.MsjExito = TempData["MsjExito"];
+                TempData.Remove("MsjExito");
+            }
+
+            ViewBag.IdUsuario = aspNetUser.Id;
+            ViewBag.Usuario = aspNetUser.UserName;
+
+            return View("Perfiles", perfiles);
+        }
+
         [Authorize(Roles = "UsuariosControllerPerfiles")]
         [HttpPost]
         public async Task<ActionResult> Perfiles(List<AspNet_Perfiles> listPerfiles)
@@ -238,7 +292,7 @@ namespace WebComunidad.Controllers
             }
             Negocio.ControladorUsuarios.AgregarPerfilesUsuario(usu);
             TempData["MsjExito"] = "Perfiles Modificados Correctamente";
-            return RedirectToAction("Perfiles", new { id = idUsario });
+            return RedirectToAction("PerfilesEncargado", new { id = idUsario });
         }
 
         protected override void Dispose(bool disposing)

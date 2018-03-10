@@ -40,6 +40,7 @@ namespace Entidades.EF
         public decimal puntos_actuales { get; set; }
         public Nullable<System.DateTime> fecha_nacimiento { get; set; }
         public Nullable<int> complejo_alta_id { get; set; }
+        public string UserName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<canje_premios> canje_premios { get; set; }

@@ -74,6 +74,20 @@
                                 </ul>
                             </div>
                         }
+                        @if (Request.IsAuthenticated && @User.IsInRole("MenuSeguridadEncargado"))
+                        {
+                            <div class="menu_section active">
+                                <h3>Usuarios</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a><i class="fa fa-key" aria-hidden="true"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="@Url.Content("~/Usuarios/Encargado")" title="Gestion Usuarios Encargado"><i class="fa fa-user"></i>Gestion Usuarios</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
                         @if (Request.IsAuthenticated && @User.IsInRole("MenuOperativo"))
                         {
                             <div class="menu_section active">
@@ -234,6 +248,18 @@
                                                 {
                                                     <li><a href="@Url.Content("~/CargaPuntosConsultas/totales")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Total</a></li>
                                                 }                                              
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (Request.IsAuthenticated && @User.IsInRole("MenuEstadisticasSocios"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-bar-chart" aria-hidden="true"></i>Carga Socios<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                @if (Request.IsAuthenticated && @User.IsInRole("SociosConsultaControllerTotales"))
+                                                {
+                                                    <li><a href="@Url.Content("~/SociosConsulta/totales")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Total</a></li>
+                                                }
                                             </ul>
                                         </li>
                                     }

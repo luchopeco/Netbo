@@ -84,7 +84,7 @@
                                                         <div>
                                                             <div class="x_content">
                                                                 <blockquote>
-                                                                    <p><strong id="lbl-nombre-socio"></strong>, Tarjeta Nro: <strong id="lbl-tarjeta-socio"></strong>, Doc: <strong id="lbl-documento-socio"></strong>, Mail: <strong id="lbl-mail-socio"></strong> , Puntos:  <strong id="lbl-puntos-socio"></strong> </p>
+                                                                    <p><strong id="lbl-nombre-socio"></strong>, Tarjeta Nro: <strong id="lbl-tarjeta-socio"></strong>, Doc: <strong id="lbl-documento-socio"></strong>, Mail: <strong id="lbl-mail-socio"></strong> , Puntos:  <strong id="lbl-puntos-socio"></strong> , Obs: <span id="lbl-obs-socio"></span> </p>
                                                                 </blockquote>
                                                             </div>
                                                         </div>
@@ -215,6 +215,7 @@
                            $('#lbl-mail-socio').html(data.mail);
                            $('#lbl-tarjeta-socio').html(data.numero_tarjeta);
                            $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#lbl-obs-socio').html(data.observaciones);
                            $('#panel-socio').find(':input').addClass('disabled');
                            $('#panel-socio').find(':input').attr('readonly', true);
                        }
@@ -292,6 +293,7 @@
                            $('#lbl-mail-socio').html(data.mail);
                            $('#lbl-tarjeta-socio').html(data.numero_tarjeta);
                            $('#lbl-puntos-socio').html(data.puntos_actuales);
+                           $('#lbl-obs-socio').html(data.observaciones);
                            $('#panel-socio').find(':input').addClass('disabled');
                            $('#panel-socio').find(':input').attr('readonly', true);
                        }

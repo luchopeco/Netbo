@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-@if (Model != null && Model.Count() > 0)
+@if (Model != null)
 {
     <div class="row">
         <div class="col-md-12">
@@ -67,63 +67,65 @@
                 </div>
                 <div class="x_content">
                     <div class="row">
-
                         @foreach (var t in Model)
                         {
-                            <div class="col-md-6">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2>Complejo:  @t.Complejo</h2>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3>Totales</h3>
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                        <tr class="success">
-                                                            <td>Puntos Cargados</td>
-                                                            <td class="text-right">@t.TotalPuntosCargados</td>
-                                                            <td class="text-right">@t.PorcentajePuntosCargadosDelTotal.ToString("N") % del Total</td>
-                                                        </tr>
-                                                        <tr class="warning">
-                                                            <td>Puntos Canjeados</td>
-                                                            <td class="text-right">@t.TotalPuntosCanjeados</td>
-                                                            <td class="text-right">@t.PorcentajePuntosDelTotal.ToString("N") % del Total</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Premios Canjeados</td>
-                                                            <td class="text-right">@t.TotalCanjesRealizados</td>
-                                                            <td class="text-right">@t.PorcentajeCanjesDelTotal.ToString("N") % del Total</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                        <div class="col-md-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Complejo:  @t.Complejo</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>Totales</h3>
+                                            <table class="table table-hover">
+                                                <tbody>
+                                                    <tr class="success">
+                                                        <td>Puntos Cargados</td>
+                                                        <td class="text-right">@t.TotalPuntosCargados</td>
+                                                        <td class="text-right">@t.PorcentajePuntosCargadosDelTotal.ToString("N") % del Total</td>
+                                                    </tr>
+                                                    <tr class="warning">
+                                                        <td>Puntos Canjeados</td>
+                                                        <td class="text-right">@t.TotalPuntosCanjeados</td>
+                                                        <td class="text-right">@t.PorcentajePuntosDelTotal.ToString("N") % del Total</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Premios Canjeados</td>
+                                                        <td class="text-right">@t.TotalCanjesRealizados</td>
+                                                        <td class="text-right">@t.PorcentajeCanjesDelTotal.ToString("N") % del Total</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3>Premios Canejados</h3>
-                                                <table class="table table-hover">
-                                                    <tbody>
-                                                        @foreach (var p in t.ListPremios)
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>Premios Canejados</h3>
+                                            <table class="table table-hover">
+                                                <tbody>
+                                                    @if (t.ListPremios != null)
+                                                    {
+                                                        foreach (var p in t.ListPremios)
                                                         {
                                                             <tr>
                                                                 <td>@p.Premio</td>
-                                                                <td class="text-right">@p.CantidadCanjeada </td>                                                               
-                                                            </tr>                                                  
+                                                                <td class="text-right">@p.CantidadCanjeada </td>
+                                                            </tr>
                                                         }
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    }
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
+
+
+                        </div>
                         }
+
 
                     </div>
                 </div>
