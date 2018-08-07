@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Entidades.EF.premio>
+@{
+    ViewBag.Title = "";
+}
+
+<section id="premios" class="section gray-bg">
+    <div class="container">
+        <div class="row title text-center">
+            <img src="~/Content/img/sumaPuntos.png" class="img-responsive center-block" />
+            <img src="~/Content/img/canjea.png" class="img-responsive center-block" />
+            <img src="~/Content/img/Premios.png" class="img-responsive center-block" />
+
+        </div>
+        <div class="row">
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var p in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="team text-center">
+                            <div class="cover" style="background:url('@ViewBag.UrlImagen@p.UrlImagen'); background-size:cover;">
+                                <div class="overlay text-center">
+                                    <h3 class="white">@p.puntos Puntos</h3>
+                                    <h5 class="light light-white"></h5>
+                                </div>
+                            </div>
+                            <img src="~/Content/img/team/team3.jpg" alt="Team Image" class="avatar">
+                            <div class="title">
+                                <h4>@p.nombre</h4>
+                                <h5 class="muted regular">@p.descripcion_larga</h5>
+                                <h5 class="muted regular">@p.puntos Puntos</h5>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</section>

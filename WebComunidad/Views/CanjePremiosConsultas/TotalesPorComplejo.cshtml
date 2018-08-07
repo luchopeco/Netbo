@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<WebComunidad.Models.CanjePuntosConsultas.TotalesPorComplejoModels>
+﻿@model  WebComunidad.Models.CanjePuntosConsultas.TotalesPorComplejoModels
 @{
     ViewBag.Title = "TotalesPorComplejo";
     Layout = "~/Views/Shared/_Master.cshtml";
@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <div class="page-title">
             <div class="title_left">
-                <h3>Total de Canje de Puntos por Complejo</h3>
+                <h3>Total de Canje de Premios por Complejo</h3>
             </div>
 
             <div class="title_right">
@@ -57,7 +57,66 @@
     </div>
 </div>
 @if (Model != null)
-{
+{<div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>@ViewBag.SubTitulo</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-info">
+                                Puntos y premios canjeados en todos los complejos.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row tile_count">
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-star" aria-hidden="true"></i>Puntos Cargados</span>
+                                    <div class="count">@Model.TotalPuntosCargados</div>
+                                    <span class="count_bottom"><i class="green">Total en todos los complejos</i></span>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-star" aria-hidden="true"></i>Puntos Canjeados</span>
+                                    <div class="count">@Model.TotalPuntosCanjeados</div>
+                                    <span class="count_bottom"><i class="green">Total en todos los complejos</i></span>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-shopping-bag" aria-hidden="true"></i>Premios Canjeados</span>
+                                    <div class="count">@Model.TotalPremiosCanjeados</div>
+                                    <span class="count_bottom"><i class="green">Total de premios en todos los complejos</i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Premios Canejados</h3>
+                            <table class="table table-hover">
+                                <tbody>
+                                    @if (Model.ListPremiosTotales != null)
+                                    {
+                                        foreach (var p in Model.ListPremiosTotales)
+                                        {
+                                            <tr>
+                                                <td>@p.Premio</td>
+                                                <td class="text-right">@p.CantidadCanjeada </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
@@ -67,7 +126,7 @@
                 </div>
                 <div class="x_content">
                     <div class="row">
-                        @foreach (var t in Model)
+                        @foreach (var t in Model.ListTotalesPorComplejo)
                         {
                         <div class="col-md-6">
                             <div class="x_panel">

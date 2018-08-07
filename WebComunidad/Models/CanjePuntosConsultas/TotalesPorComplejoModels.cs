@@ -7,6 +7,21 @@ namespace WebComunidad.Models.CanjePuntosConsultas
 {
     public class TotalesPorComplejoModels
     {
+        public TotalesPorComplejoModels()
+        {
+            ListPremiosTotales = new List<TotalesPorComplejoPremiosModels>();
+            ListTotalesPorComplejo = new List<TotalesDiscriminadoPorComplejoModels>();
+        }
+            
+        public string TotalPuntosCargados { get; set; }
+        public string TotalPuntosCanjeados { get; set; }
+        public string TotalPremiosCanjeados { get; set; }
+        public  List<TotalesDiscriminadoPorComplejoModels> ListTotalesPorComplejo { get; set; }
+        public List<TotalesPorComplejoPremiosModels> ListPremiosTotales { get; set; }
+    }
+
+    public class TotalesDiscriminadoPorComplejoModels
+    {
         public int IdComplejo { get; set; }
         public string Complejo { get; set; }
         public decimal TotalPuntosCanjeados { get; set; }
@@ -19,8 +34,8 @@ namespace WebComunidad.Models.CanjePuntosConsultas
         public decimal PorcentajePuntosCargadosDelTotal { get; set; }
 
         public List<TotalesPorComplejoPremiosModels> ListPremios { get; set; }
-    }
 
+    }
     public class TotalesPorComplejoPremiosModels
     {
         public string Premio { get; set; }

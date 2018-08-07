@@ -18,17 +18,17 @@
     @Styles.Render("~/Target/css")
     <link rel="shortcut icon" href="~/Img/favicon.ico">
 </head>
-<body>
+<body class="login">
     <div class="row" style="padding:10px; margin-top:30px">
         <div class="col-md-12">
             <img src="~/Img/logo.png" class="img-responsive center-block" />
         </div>
     </div>
 
-    <div class="col-xs-8 col-xs-offset-2 text-center" style="background-color:#E0E8F5;">
+    <div class="col-md-8 col-md-offset-2 text-center" style="background-color:#E0E8F5;">
         <div style="margin-bottom:30px; padding-top:10px">
             <div class="row">
-                <div class="col-xs-8 col-xs-offset-2">
+                <div class="col-md-8 col-md-offset-2">
                     <section id="loginForm">
 
                         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

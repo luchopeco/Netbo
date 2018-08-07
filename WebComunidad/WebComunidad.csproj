@@ -49,10 +49,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
       <Private>True</Private>
@@ -229,8 +225,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ComunidadContext.cs" />
+    <Compile Include="Models\SociosConsulta\RankingCargasModels.cs" />
     <Compile Include="Models\SociosConsulta\TotalesModels.cs" />
     <Compile Include="Models\Socios\CambioTarjetaModels.cs" />
+    <Compile Include="Models\Socios\CanjePremiosModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rdlc\Helper.cs" />
     <Compile Include="rdlc\rdlcEntities\PImpresion\EstadoDeCuenta.cs" />
@@ -1867,6 +1865,7 @@
     <Content Include="Content\Theme\vendors\bootstrap-datepicker-1.6.4\css\bootstrap-datepicker3.min.css.map" />
     <Content Include="Content\Theme\vendors\bootstrap-datepicker-1.6.4\css\bootstrap-datepicker3.standalone.css.map" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\SmarterASp.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -1994,9 +1993,13 @@
     <Content Include="Views\Socios\CambioTarjeta.cshtml" />
     <Content Include="Views\Home\Unauthorized.cshtml" />
     <Content Include="Views\SociosConsulta\Totales.cshtml" />
+    <Content Include="Views\SociosConsulta\RankingCargas.cshtml" />
+    <Content Include="Views\Socios\CanjesPremios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\premios\" />
+    <Folder Include="Content\NewFolder1\" />
     <Folder Include="Datos\" />
   </ItemGroup>
   <ItemGroup>

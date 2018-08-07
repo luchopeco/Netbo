@@ -16,6 +16,14 @@ namespace WebSociosComunidad.Controllers
 {
     public class CanjesController : Controller
     {
+
+        private static string UrlImagen
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["UrlImagen"];
+            }
+        }
         private ComunidadContext db = new ComunidadContext();
         public int IdSocioIdentity
         {
@@ -52,8 +60,21 @@ namespace WebSociosComunidad.Controllers
                 Models.Canjes.AlAlcance aa = new Models.Canjes.AlAlcance();
                 aa.Premio = item.nombre;
                 aa.Puntos = (int)item.puntos;
+                aa.Alcance = true;   
+                aa.UrlImagen = UrlImagen + item.UrlImagen;
                 listP.Add(aa);
             }
+            var listTodos = db.premios.Where(pp => pp.desactivado == false);
+            foreach (var item in listTodos)
+            {
+                Models.Canjes.AlAlcance aa = new Models.Canjes.AlAlcance();
+                aa.Premio = item.nombre;
+                aa.Puntos = (int)item.puntos;
+                aa.Alcance = false;
+                aa.UrlImagen = UrlImagen + item.UrlImagen;
+                listP.Add(aa);
+            }
+
             return View(listP);
 
         }

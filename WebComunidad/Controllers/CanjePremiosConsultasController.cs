@@ -64,7 +64,7 @@ namespace WebComunidad.Controllers
         [HttpPost]
         public ActionResult TotalesPorComplejo(DateTime fechaDesde, DateTime fechaHasta)
         {
-            List<WebComunidad.Models.CanjePuntosConsultas.TotalesPorComplejoModels> totales = new List<Models.CanjePuntosConsultas.TotalesPorComplejoModels>();
+            WebComunidad.Models.CanjePuntosConsultas.TotalesPorComplejoModels totales = new Models.CanjePuntosConsultas.TotalesPorComplejoModels();
 
             DateTime fd = Helper.Helper.FechaHoraDesde(fechaDesde);
             DateTime fh = Helper.Helper.FechaHoraHasta(fechaHasta);
@@ -72,72 +72,88 @@ namespace WebComunidad.Controllers
             ViewBag.SubTitulo = "Desde el " + fd.ToShortDateString() + " hasta el " + fh.ToShortDateString();
 
             int cantidad = db.carga_puntos.Count(c => c.fecha_alta >= fd && c.fecha_alta <= fh);
-            if (cantidad>0)
+            if (cantidad > 0)
             {
 
-            
-            var tot = from c in db.canje_premios
-                      where c.fecha_alta >= fd && c.fecha_alta <= fh
-                      group c by c.complejo_canje_id into grupoCanje                      
-                      select new { grupoCanje };
 
-            var puntosCargadosPorComplejos = from cp in db.carga_puntos
-                                      where cp.fecha_alta >= fd && cp.fecha_alta <= fh
-                                      group cp by cp.complejo_id into grupoCarga
-                                      select new { grupoCarga };
+                var tot = from c in db.canje_premios
+                          where c.fecha_alta >= fd && c.fecha_alta <= fh
+                          group c by c.complejo_canje_id into grupoCanje
+                          select new { grupoCanje };
 
-            decimal totalPuntosCargados = db.carga_puntos.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Sum(c => c.puntos_cargados);
-            decimal totalCargaPuntos = db.carga_puntos.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Count();
-            decimal totalPuntosCanjeados = db.canje_premios.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Sum(c=>c.puntos_canjeados);
-            decimal totalCanjes = db.canje_premios.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Count();
+                var puntosCargadosPorComplejos = from cp in db.carga_puntos
+                                                 where cp.fecha_alta >= fd && cp.fecha_alta <= fh
+                                                 group cp by cp.complejo_id into grupoCarga
+                                                 select new { grupoCarga };
 
+                decimal totalPuntosCargados = db.carga_puntos.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Sum(c => c.puntos_cargados);
+                decimal totalCargaPuntos = db.carga_puntos.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Count();
+                decimal totalPuntosCanjeados = db.canje_premios.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Sum(c => c.puntos_canjeados);
+                decimal totalCanjes = db.canje_premios.Where(c => c.fecha_alta >= fd && c.fecha_alta <= fh).Count();
 
-            foreach (var t in tot)
-            {
-                Models.CanjePuntosConsultas.TotalesPorComplejoModels tc = new Models.CanjePuntosConsultas.TotalesPorComplejoModels();
-                tc.IdComplejo = t.grupoCanje.Key;
-                tc.Complejo = db.complejoes.Find(t.grupoCanje.Key).descripcion;
-                tc.TotalPuntosCanjeados = t.grupoCanje.Sum(c=>c.puntos_canjeados);
-                tc.TotalCanjesRealizados = t.grupoCanje.Count();
-                tc.PorcentajeCanjesDelTotal = (tc.TotalCanjesRealizados * 100) / totalCanjes;
-                tc.PorcentajePuntosDelTotal = (tc.TotalPuntosCanjeados * 100) / totalPuntosCanjeados;
+                totales.TotalPuntosCargados = totalPuntosCargados.ToString();
+                totales.TotalPuntosCanjeados = totalPuntosCanjeados.ToString();
+                totales.TotalPremiosCanjeados = totalCanjes.ToString();
 
-
-                tc.ListPremios = new List<Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels>();
-                var premio = from p in db.canje_premios
-                             where p.complejo_canje_id == t.grupoCanje.Key
-                             group p by p.premio_id into grupoPremio
-                             select grupoPremio;                
-                foreach (var p in premio)
+                var listPremio = from cp in db.canje_premios
+                             where cp.fecha_alta >= fechaDesde && cp.fecha_alta<=fechaHasta
+                                 group cp by cp.premio into grupoPremios
+                                 select grupoPremios;
+                foreach (var p in listPremio)
                 {
                     Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels tcp = new Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels();
-                    tcp.Premio = db.premios.Find(p.Key).nombre;
+                    tcp.Premio = p.FirstOrDefault().premio.nombre;
                     tcp.CantidadCanjeada = p.Count();
-                    tc.ListPremios.Add(tcp);
+                    totales.ListPremiosTotales.Add(tcp);
                 }
 
-                totales.Add(tc);
-            }
-            foreach (var pc in puntosCargadosPorComplejos)
-            {
-                if (totales.Exists(t=>t.IdComplejo==pc.grupoCarga.Key))
+                foreach (var t in tot)
                 {
-                    totales.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).TotalPuntosCargados = pc.grupoCarga.Sum(p=>p.puntos_cargados);
-                    totales.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).PorcentajePuntosCargadosDelTotal = (totales.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).TotalPuntosCargados * 100) / totalPuntosCargados;
+                    Models.CanjePuntosConsultas.TotalesDiscriminadoPorComplejoModels tc = new Models.CanjePuntosConsultas.TotalesDiscriminadoPorComplejoModels();
+                    tc.IdComplejo = t.grupoCanje.Key;
+                    tc.Complejo = db.complejoes.Find(t.grupoCanje.Key).descripcion;
+                    tc.TotalPuntosCanjeados = t.grupoCanje.Sum(c => c.puntos_canjeados);
+                    tc.TotalCanjesRealizados = t.grupoCanje.Count();
+                    tc.PorcentajeCanjesDelTotal = (tc.TotalCanjesRealizados * 100) / totalCanjes;
+                    tc.PorcentajePuntosDelTotal = (tc.TotalPuntosCanjeados * 100) / totalPuntosCanjeados;
+
+
+                    tc.ListPremios = new List<Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels>();
+                    var premio = from p in db.canje_premios
+                                 where p.complejo_canje_id == t.grupoCanje.Key
+                                 group p by p.premio_id into grupoPremio
+                                 select grupoPremio;
+                    foreach (var p in premio)
+                    {
+                        Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels tcp = new Models.CanjePuntosConsultas.TotalesPorComplejoPremiosModels();
+                        tcp.Premio = db.premios.Find(p.Key).nombre;
+                        tcp.CantidadCanjeada = p.Count();
+                        tc.ListPremios.Add(tcp);
+                    }
+
+                    totales.ListTotalesPorComplejo.Add(tc);
                 }
-                else
+                foreach (var pc in puntosCargadosPorComplejos)
                 {
-                    Models.CanjePuntosConsultas.TotalesPorComplejoModels tc = new Models.CanjePuntosConsultas.TotalesPorComplejoModels();
-                    tc.IdComplejo = pc.grupoCarga.Key;
-                    tc.Complejo = db.complejoes.Find(pc.grupoCarga.Key).descripcion;
-                    tc.TotalPuntosCargados = pc.grupoCarga.Sum(p => p.puntos_cargados);
-                    tc.PorcentajePuntosCargadosDelTotal = (tc.TotalPuntosCargados * 100) / totalPuntosCargados;
-                    totales.Add(tc);
+                    if (totales.ListTotalesPorComplejo.Exists(t => t.IdComplejo == pc.grupoCarga.Key))
+                    {
+                        totales.ListTotalesPorComplejo.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).TotalPuntosCargados = pc.grupoCarga.Sum(p => p.puntos_cargados);
+                        totales.ListTotalesPorComplejo.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).PorcentajePuntosCargadosDelTotal = (totales.ListTotalesPorComplejo.FirstOrDefault(t => t.IdComplejo == pc.grupoCarga.Key).TotalPuntosCargados * 100) / totalPuntosCargados;
+                    }
+                    else
+                    {
+                        Models.CanjePuntosConsultas.TotalesDiscriminadoPorComplejoModels tc = new Models.CanjePuntosConsultas.TotalesDiscriminadoPorComplejoModels();
+                        tc.IdComplejo = pc.grupoCarga.Key;
+                        tc.Complejo = db.complejoes.Find(pc.grupoCarga.Key).descripcion;
+                        tc.TotalPuntosCargados = pc.grupoCarga.Sum(p => p.puntos_cargados);
+                        tc.PorcentajePuntosCargadosDelTotal = (tc.TotalPuntosCargados * 100) / totalPuntosCargados;
+                        totales.ListTotalesPorComplejo.Add(tc);
+
+                    }
 
                 }
+            }
 
-            }
-            }
             return View(totales);
         }
         protected override void Dispose(bool disposing)

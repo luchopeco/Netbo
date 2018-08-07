@@ -12,16 +12,11 @@
                 <h3>Modificando Premio</h3>
             </div>
 
-            @*<div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Search for..." type="text">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
+           <div class="title_right">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
+                        <div class="text-danger">Si selecciona una nueva imagen se modifica, de lo contrario queda la imagen actual.</div>
                     </div>
-                </div>*@
+                </div>
         </div>
     </div>
 </div>
@@ -31,8 +26,8 @@
             <div class="x_title">Modificando Premio - @Model.nombre</div>
             <div class="x_content">
                 <div class="row">
-                    @using (Html.BeginForm())
-                    {
+                   @using (Html.BeginForm("Edit", "Premios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                   {
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(model => model.id)
                         @Html.HiddenFor(model => model.usuario_alta)
@@ -68,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6" title="Es el complejo responsable de la carga, no es obligatorio">
+                                <div class="col-md-4" title="Es el complejo responsable de la carga, no es obligatorio">
                                     Complejo Responsable
                                     <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon"><i class="fa fa-map-marker"></i></span>
@@ -76,7 +71,7 @@
                                         @Html.ValidationMessageFor(model => model.complejo_responsable_id, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     Desactivado
                                     <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon"><i class="fa fa-check"></i></span>
@@ -85,6 +80,13 @@
                                     </div>
 
                                 </div>
+                                <div class="col-md-4">
+                                    Imagen (jpg,png,gif,bmp)
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-image"></i></span>
+                                        <input type="file" name="ImagenFile" class="form-control" />
+                                    </div>
+                                </div>
                             </div>
                             <br />
                             <div class="row">
@@ -92,6 +94,11 @@
                                     <div class="col-md-12">
                                         <input type="submit" value="Modificar" class="btn btn-success btn-block" />
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img src="@Model.UrlImagen" class="img-responsive center-block" />
                                 </div>
                             </div>
                         </div>

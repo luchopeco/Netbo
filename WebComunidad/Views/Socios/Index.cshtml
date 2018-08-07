@@ -55,6 +55,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-condensed">
                                 <tr>
+                                    <th></th>
                                     <th>
                                         Nombre
                                     </th>
@@ -85,12 +86,33 @@
                                     <th>
                                         Fecha Alta
                                     </th>
-                                    <th></th>
+                                    
                                 </tr>
 
                                 @foreach (var item in Model)
                                 {
                                     <tr title="@item.observaciones">
+                                        <td>
+                                            <a href="@Url.Action("Edit", new {id = item.id})" title="Editar Perfil" class="btn btn-xs btn-info">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Details", new {id = item.id})" title="Detalle" class="btn btn-xs btn-primary">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="@Url.Action("CambioTarjeta", new {idSocio = item.id})" title="Cambio de Tarjeta" class="btn btn-xs btn-success">
+                                                <i class="fa fa-exchange" aria-hidden="true"></i> | <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="@Url.Action("PuntosCargados", new {id = item.id})" title="Historial de cargas de puntos" class="btn btn-xs btn-info">
+                                                <i class="fa fa-clock-o"></i>
+                                            </a>
+                                            <a href="@Url.Action("CanjesPremios","Socios", new {id = item.id})" title="Canjes de Premios Realizados" class="btn btn-xs btn-warning">
+                                                <i class="fa fa-shopping-bag"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+
+                                        </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.apellido),  @Html.DisplayFor(modelItem => item.nombre)
                                         </td>
@@ -128,20 +150,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.fecha_alta)
                                         </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", new {id = item.id})" title="Editar Perfil" class="btn btn-xs btn-info">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="@Url.Action("Details", new {id = item.id})" title="Detalle" class="btn btn-xs btn-primary">
-                                                <i class="fa fa-bars" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="@Url.Action("CambioTarjeta", new {idSocio = item.id})" title="Cambio de Tarjeta" class="btn btn-xs btn-success">
-                                                <i class="fa fa-exchange" aria-hidden="true"></i> | <i class="fa fa-credit-card" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="@Url.Action("Delete", new {id = item.id})" title="Eliminar" class="btn btn-xs btn-danger">
-                                                <i class="fa fa-close"></i>
-                                            </a>
-                                        </td>
+                                        
                                     </tr>
                                 }
 

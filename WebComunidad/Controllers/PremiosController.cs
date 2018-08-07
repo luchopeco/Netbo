@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Entidades.EF;
 using WebComunidad.Models;
+using System.IO;
 
 namespace WebComunidad.Controllers
 {
@@ -55,10 +56,23 @@ namespace WebComunidad.Controllers
         [Authorize(Roles = "PremiosControllerCreate")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "nombre,descripcion_larga,puntos,complejo_responsable_id,desactivado")] premio premio)
+        public async Task<ActionResult> Create([Bind(Include = "nombre,descripcion_larga,puntos,complejo_responsable_id,desactivado,ImagenFile")] premio premio)
         {
             if (ModelState.IsValid)
             {
+                if (premio.ImagenFile!=null)
+                {
+                    string extension = Path.GetExtension(premio.ImagenFile.FileName);
+                    if (extension.ToLower() != ".png" && extension.ToLower() != ".jpg" && extension.ToLower() != ".jpeg" && extension.ToLower() != ".gif" && extension.ToLower() != ".bmp")
+                    {
+                        return View(premio);
+                    }
+                    ///guardo la imagen
+                    string archivo = "premio-id" + db.premios.Max(p => p.id)  + extension;
+                    premio.ImagenFile.SaveAs(Server.MapPath("~/Content/img/premios/" + archivo));
+                    premio.path_imagenes = archivo;
+                }
+                
                 premio.usuario_alta = User.Identity.Name;
                 premio.usuario_modificacion = User.Identity.Name;
                 premio.fecha_alta = DateTime.Now;
@@ -96,10 +110,23 @@ namespace WebComunidad.Controllers
         [Authorize(Roles = "PremiosControllerEdit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,nombre,descripcion_larga,puntos,complejo_responsable_id,desactivado,usuario_alta,fecha_alta")] premio premio)
+        public async Task<ActionResult> Edit([Bind(Include = "id,nombre,descripcion_larga,puntos,complejo_responsable_id,desactivado,usuario_alta,fecha_alta,ImagenFile")] premio premio)
         {
             if (ModelState.IsValid)
-            {            
+            {
+                if (premio.ImagenFile != null)
+                {
+                    string extension = Path.GetExtension(premio.ImagenFile.FileName);
+                    if (extension.ToLower() != ".png" && extension.ToLower() != ".jpg" && extension.ToLower() != ".jpeg" && extension.ToLower() != ".gif" && extension.ToLower() != ".bmp")
+                    {
+                        return View(premio);
+                    }
+                    ///guardo la imagen
+                    string archivo = "premio-id" + premio.id+ extension;
+                    premio.ImagenFile.SaveAs(Server.MapPath("~/Content/img/premios/" + archivo));
+                    premio.path_imagenes = archivo;
+                }
+
                 premio.usuario_modificacion = User.Identity.Name;              
                 premio.fecha_modificacion = DateTime.Now;
                 db.Entry(premio).State = EntityState.Modified;

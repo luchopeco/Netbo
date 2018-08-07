@@ -10,5 +10,9 @@ namespace WebSociosComunidad.Models.Canjes
         public string Premio { get; set; }
 
         public int Puntos { get; set; }
+
+        public string UrlImagen { get; set; }
+
+        public bool Alcance { get; set; }
     }
 }

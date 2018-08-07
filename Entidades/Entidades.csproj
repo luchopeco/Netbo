@@ -51,6 +51,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,6 +95,7 @@
     <Compile Include="EF\premio.cs">
       <DependentUpon>Comunidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\premioPartial.cs" />
     <Compile Include="EF\provincia.cs">
       <DependentUpon>Comunidad.tt</DependentUpon>
     </Compile>

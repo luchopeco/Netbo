@@ -30,7 +30,7 @@
         <div class="x_panel">
             <div class="x_title">Premio</div>
             <div class="x_content">
-                <div class="row">
+                <div class="row">                    
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.nombre)
@@ -113,6 +113,11 @@
                         </dd>
 
                     </dl>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="@Model.UrlImagen" class="img-responsive center-block" />
+                    </div>
                 </div>
             </div>
         </div>

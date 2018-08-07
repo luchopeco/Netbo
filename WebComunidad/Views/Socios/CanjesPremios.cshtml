@@ -1,0 +1,53 @@
+﻿@model WebComunidad.Models.Socios.CanjePremiosModels
+@{
+    ViewBag.Title = "CanjesPremios";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Canjes de premios por Socios</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-12 form-group pull-right top_search">
+                    <small class="text-danger">
+                       Aqui se muestra el detalle de canjes realizados por un socio
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@Model.ApenomSocio <small>@Model.TotalCanjes canjes</small></h2>                
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="list-unstyled msg_list">
+                    @foreach (var item in Model.ListCanjes.OrderByDescending(c=>c.FechaCanje)) { 
+                    <li>
+                        <a>
+                            <span class="image">
+                                <img src="@item.PathImagenPremio" alt="img">
+                            </span>
+                            <span>
+                                <span>@item.Premio</span>
+                                <span class="time">@item.PuntosCanjeados puntos</span>
+                            </span>
+                            <span class="message">
+                              El <strong> @item.FechaCanje.ToShortDateString() </strong> en <strong> @item.ComplejoDesc </strong>
+                            </span>
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

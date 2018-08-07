@@ -325,6 +325,41 @@ namespace Helper
             return new DateTime(fechaHora.Year, fechaHora.Month, fechaHora.Day, 23, 59, 59);
         }
 
+        /// <summary>
+        /// Devuelve  mas de un minuto, mas de un mes, mas de 1 ano, etc
+        /// </summary>
+        /// <param name="fechaACalcular"></param>
+        /// <returns></returns>
+        public static string FechaAmigable(DateTime fechaACalcular)
+        {
+            string fecha = string.Empty;
+            DateTime fechaActual = DateTime.Now;
+            TimeSpan dif = fechaActual - fechaACalcular;
+            if (dif.Days > 365)
+            {
+                decimal ano = dif.Days / 365;
+                return Math.Truncate(ano).ToString() + " años";
 
+            }
+            else if (dif.Days > 30)
+            {
+                decimal mes = dif.Days / 30;
+                return Math.Truncate(mes).ToString() + " mes/meses";
+            }
+            else if (dif.Days >= 1)
+            {
+                int dias = dif.Days;
+                return dias.ToString() + " días";
+            }
+            else if (dif.Hours >= 1)
+            {
+                return dif.Hours + " horas";
+            }
+            else
+            {
+                return dif.Minutes + " minutos";
+            }
+
+        }
     }
 }

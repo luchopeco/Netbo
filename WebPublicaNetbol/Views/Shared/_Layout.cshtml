@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Netbol :: Comunidad de Fútbol</title>
+    <meta name="description" content="Netbol Comunidad de Futbol. Netbol es el punto de intersección entre tres marcas con vasta experiencia en el rubro de fútbol 5, TIFOSI - CAMPUS - PLAY." />
+    <meta name="keywords" content="tifosi, campus, play, netbol, complejo, futbol, amigos, club, comunidad" />
+    <meta name="author" content="Wiphala Sistemas" />
+    <!-- Favicons (created with http://realfavicongenerator.net/)-->
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Content/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Content/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="icon" type="image/png" href="~/Content/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/Content/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="~/Content/img/favicons/manifest.json">
+    <link rel="shortcut icon" href="~/Content/img/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="~/Content/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Normalize -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/normalize.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css">
+    <!-- Owl -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/owl.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/animate.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/font-awesome-4.1.0/css/font-awesome.min.css">
+    <!-- Elegant Icons -->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/eleganticons/et-icons.css">
+    <!-- Main style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/cardio.css">
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="~/Content/img/loader.gif" alt="....Cargando.....">
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="/Content/img/logo.png" data-active-url="/Content/img/logo-active.png" alt=""></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right main-nav">
+                    <li><a href="#nosotros">NOSOTROS</a></li>
+                    <li><a href="#comunidad">COMUNIDAD</a></li>
+                    <li><a href="#premios">PREMIOS</a></li>
+                    <li><a href="#contacto">CONTACTO</a></li>
+                    <li><a href="http://socios.netbol.club" class="btn btn-blue">SOCIOS</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <header id="nosotros">
+        <div class="container">
+            <div class="table">
+                <div class="header-text">
+                    <div class="row">
+                        <div class="row">
+                            @if (ViewBag.MsjExito != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>@ViewBag.MsjExito</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (ViewBag.MsjError != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <strong>@ViewBag.MsjError</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <br />
+                            <img src="~/Content/img/3marcas.png" class="img-responsive center-block" />
+                            <br />
+                            <img src="~/Content/img/sefusionan.png"  class="img-responsive center-block"/>
+                          
+                            <span class="typed-cursor">|</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="comunidad">
+        <div class="cut cut-top"></div>
+        <div class="container">
+            <br />
+            <h3 class="text-center">> LOS MEJORES COMPLEJOS DE ROSARIO Y PERGAMINO <</h3>
+            <br />
+            <br />
+            <div class="row intro-tables">
+                <div class="col-md-4">
+                    <a href="http://ligatifosi.com" target="_blank">  <img src="~/Content/img/Tifosi.png" class="img-responsive" /></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="http://ligascampus.com" target="_blank">  <img src="~/Content/img/Campus.png" class="img-responsive" /></a>
+                </div>
+                <div class="col-md-4">
+                    <a href="" target="_blank">  <img src="~/Content/img/Play.png" class="img-responsive" /></a>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-center">Jugá  al fútbol con amigos, sumá puntos y Netbol te premia !  </h5>
+                    <div class="text-justify">
+                        Netbol es el punto de intersección entre tres marcas con vasta experiencia en el rubro de fútbol 5, TIFOSI - CAMPUS - PLAY.
+                        Somos la primera comunidad de fútbol y eso nos representa una gran responsabilidad, es por eso que en forma conjunta con las marcan que componen Netbol nos propusimos como objetivo alinear y mejoras cada unos de nuestros servicios que ofrecemos, capacitando a nuestro staff, apostanto al cuidado del medio ambiente con el uso de iluminación LED, importamos la mejor pelota del mercado para ofrecer una mejor calidad de juegos a nuestros socios, y seguiremos sumando y mejorando nuestros servicios para que nuestros socios vivan una jornada distinta...
+                    </div>
+                    <br />
+                    <div class="text-justify">La comunidad Netbol es el espacio donde sus socios se sentirán como verdaderos profesionales al ser premiados por hacer lo que más le gusta, JUGAR al FÚTBOL con AMIGOS, si si escuchaste bien jugás al fútbol con amigos, sumas puntos y Netbol te premia ... </div>
+                    <br />
+                    <div class="text-justify">Retira la tarjeta Netbol en cualquiera de nuestras sucursales y empezá a sumar puntos!</div>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <div class="cut cut-bottom"></div>
+    </section>
+
+    @RenderBody()
+
+
+    <section id="contacto" class="section section-padded">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-7 text-center">
+                            <img class="img-responsive" src="~/Content/img/contacto/tarjeta.png" />
+                            <br />
+                            <h3 style="font-style:italic; font-weight:bold">FORMÁ PARTE!</h3>
+                            <p>Pedí tu tarjeta en el complejo más cercano.</p>
+                        </div>
+                        <div class="col-md-5">
+                            <h3 class="text-center" style="font-style:italic; font-weight:bold">LLAMANOS!</h3>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <a href="http://ligatifosi.com" target="_blank"> <img class="img-responsive center-block" src="~/Content/img/contacto/logo-tifosi.png" /></a>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div> <strong>Tifosi</strong></div>
+                                    <div> (0341) 156 563365</div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <a href="http://ligascampus.com" target="_blank"><img class="img-responsive center-block" src="~/Content/img/contacto/logo-campus.png" /></a>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div><strong>Campus</strong></div>
+                                    <div>(0341) 152 478302</div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <a href="" target="_blank"><img class="img-responsive center-block" src="~/Content/img/contacto/logo-play.png" /></a>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div><strong>Play</strong></div>
+                                    <div> (02477) 44-4545</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-center" style="font-style:italic; font-weight:bold">CONTACTO</h3>
+                    <br />
+                    @using (Html.BeginForm("Contacto", "Home"))
+                    {
+                        <div class="row">
+                            <div class="col-md-12"><input name="nombre" type="text" class="form-control" placeholder="NOMBRE Y APELLIDO" required /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"><input name="mail" type="email" class="form-control" placeholder="MAIL" required /></div>
+                            <div class="col-md-6"><input name="ciudad" type="text" class="form-control" placeholder="CUIDAD" required /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><input name="mensaje" type="text" class="form-control" placeholder="CONSULTA" required /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><input type="submit" value="CONSULTAR" class="btn btn-block btn-blue" required /></div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <small> Diseño: <a href="#" target="_blank">Fabrica</a></small>
+                </div>
+                <div class="col-xs-6 text-center" >
+                    <small> Desarrollo: <a href="http://www.wiphalasistemas.com.ar" target="_blank">Wiphala Sistemas</a></small>
+                </div>
+            </div>
+        </div>        
+    </section>
+
+    <!-- Holder for mobile navigation -->
+    <div class="mobile-nav">
+        <ul></ul>
+        <a href="#" class="close-link"><i class="arrow_up"></i></a>
+    </div>
+    <!-- Scripts -->
+    <script src="~/Content/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/wow.min.js"></script>
+    <script src="~/Content/js/typewriter.js"></script>
+    <script src="~/Content/js/jquery.onepagenav.js"></script>
+    <script src="~/Content/js/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

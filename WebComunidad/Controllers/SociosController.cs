@@ -275,7 +275,7 @@ namespace WebComunidad.Controllers
 
         [Authorize(Roles = "SociosControllerPuntosCargados")]
         [HttpGet]
-        public async Task<ActionResult> PuntosCargados(int? id)
+        public async Task<ActionResult> PuntosCargados(int? id, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             if (id == null)
             {
@@ -288,8 +288,22 @@ namespace WebComunidad.Controllers
                     ViewBag.MsjExito = TempData["MsjExito"];
                     TempData.Remove("MsjExito");
                 }
-                DateTime fd = Helper.Helper.FechaHoraDesde(DateTime.Today);
-                DateTime fh = Helper.Helper.FechaHoraHasta(DateTime.Today);
+                DateTime fd;
+                DateTime fh;
+                if (fechaDesde == null)
+                {
+                    ViewBag.NoMostrarBusquedad = "True";
+                    fd = Helper.Helper.FechaHoraDesde(DateTime.Today);
+                    fh = Helper.Helper.FechaHoraHasta(DateTime.Today);
+                }
+                else
+                {
+                    ViewBag.NoMostrarBusquedad = "True";
+                    fd = Helper.Helper.FechaHoraDesde((DateTime)fechaDesde);
+                    fh = Helper.Helper.FechaHoraHasta((DateTime)fechaHasta);
+                    
+                }
+
                 socio soc = db.socios.Find(id);
                 ViewBag.Puntos = (int)soc.puntos_actuales;
                 ViewBag.SubTitulo = "Socio: " + soc.apellido + ", " + soc.nombre + " del " + fd.ToShortDateString() + " al " + fh.ToShortDateString();
@@ -301,6 +315,32 @@ namespace WebComunidad.Controllers
             }
 
         }
+
+        [Authorize(Roles = "SociosControllerCanjesPremios")]
+        public ActionResult CanjesPremios(int id)
+        {
+            Models.Socios.CanjePremiosModels m = new Models.Socios.CanjePremiosModels();
+            m.TotalCanjes = (int)db.canje_premios.Count(s => s.socio_id == id);
+            var socio = db.socios.Find(id);
+            m.ApenomSocio = socio.apellido + ", " + socio.nombre;
+            m.IdSocio = socio.id;
+            DateTime fechaHasta = Helper.Helper.FechaHoraHasta(DateTime.Today.AddDays(-30));
+            DateTime fechaDesder = Helper.Helper.FechaHoraDesde(DateTime.Today);
+            var listCanjes30Dias = db.canje_premios.Where(c => c.socio_id == id);
+            foreach (var item in listCanjes30Dias)
+            {
+                Models.Socios.CanjesPremios cp = new Models.Socios.CanjesPremios();
+                cp.FechaCanje = item.fecha_alta;
+                cp.PuntosCanjeados = (int)item.puntos_canjeados;
+                cp.Premio = item.premio.nombre;
+                cp.ComplejoDesc = item.complejo.descripcion;
+                cp.PathImagenPremio = item.premio.UrlImagen;
+                m.ListCanjes.Add(cp);
+            }
+
+            return View(m);
+        }
+
 
         [Authorize(Roles = "SociosControllerPuntosCargados")]
         [HttpPost]
@@ -362,7 +402,7 @@ namespace WebComunidad.Controllers
         public ActionResult BuscarTarjeta(string nroTarjeta)
         {
             var tarjeta = (from t in db.tarjeta_socio
-                           where t.activada == true && t.socio_id == null && t.numero_tarjeta == nroTarjeta && t.fecha_baja==null
+                           where t.activada == true && t.socio_id == null && t.numero_tarjeta == nroTarjeta && t.fecha_baja == null
                            select t).FirstOrDefault();
             if (tarjeta != null)
             {
@@ -381,9 +421,9 @@ namespace WebComunidad.Controllers
         [Authorize(Roles = "SociosControllerCambioTarjeta")]
         [HttpPost]
         public ActionResult ModificarTarjeta(Models.Socios.CambioTarjetaModels m)
-        {            
+        {
             using (var dbTransaction = db.Database.BeginTransaction())
-            {         
+            {
                 try
                 {
                     var t = db.tarjeta_socio.Find(m.TarjetaNueva.id);

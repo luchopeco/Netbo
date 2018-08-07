@@ -254,11 +254,15 @@
                                     @if (Request.IsAuthenticated && @User.IsInRole("MenuEstadisticasSocios"))
                                     {
                                         <li>
-                                            <a><i class="fa fa-bar-chart" aria-hidden="true"></i>Carga Socios<span class="fa fa-chevron-down"></span></a>
+                                            <a><i class="fa fa-bar-chart" aria-hidden="true"></i>Socios<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 @if (Request.IsAuthenticated && @User.IsInRole("SociosConsultaControllerTotales"))
                                                 {
                                                     <li><a href="@Url.Content("~/SociosConsulta/totales")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Total</a></li>
+                                                }
+                                                @if (Request.IsAuthenticated && @User.IsInRole("SociosConsultaControllerRankingCargas"))
+                                               {
+                                                    <li><a href="@Url.Content("~/SociosConsulta/RankingCargas")"><i class="fa fa-pie-chart" aria-hidden="true"></i>Ranking Cargas</a></li>
                                                 }
                                             </ul>
                                         </li>

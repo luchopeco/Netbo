@@ -31,8 +31,8 @@
             <div class="x_title">Nuevo Premio</div>
             <div class="x_content">
                 <div class="row">
-                    @using (Html.BeginForm())
-                    {
+                 @using (Html.BeginForm("Create", "Premios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                 {
                         @Html.AntiForgeryToken()
                         <div>
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6" title="Es el complejo responsable de la carga, no es obligatorio">
+                                <div class="col-md-4" title="Es el complejo responsable de la carga, no es obligatorio">
                                     Complejo Responsable
                                     <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon"><i class="fa fa-map-marker"></i></span>
@@ -73,7 +73,7 @@
                                         @Html.ValidationMessageFor(model => model.complejo_responsable_id, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     Desactivado
                                     <div class="input-prepend input-group">
                                         <span class="add-on input-group-addon"><i class="fa fa-check"></i></span>
@@ -81,6 +81,14 @@
                                         @Html.ValidationMessageFor(model => model.desactivado, "", new { @class = "text-danger" })
                                     </div>
                                   
+                                </div>
+                                <div class="col-md-4">
+                                    Imagen (jpg,png,gif,bmp)
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon"><i class="fa fa-image"></i></span>
+                                        <input type="file" name="ImagenFile" class="form-control" />                                        
+                                    </div>
+
                                 </div>
                             </div>
                             <br />
